@@ -55,4 +55,10 @@ Contributions are welcome! Please open an issue or submit a pull request with yo
 
 ---
 
+<p align="center">
+  <img src="image.png"/>
+</p>
+
+---
+
 Enjoy a more organized browsing experience with ZenTabs!
