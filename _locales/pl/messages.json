@@ -1,0 +1,38 @@
+{
+    "extension_name": {
+        "message": "ZenTabs - Menedżer Kart"
+    },
+    "description": {
+        "message": "Zorganizuj swoje doświadczenie przeglądania, eksportując i importując adresy URL kart do tekstu oraz sortując je."
+    },
+    "include_titles": {
+        "message": "Wyświetl tytuły"
+    },
+    "include_all_windows": {
+        "message": "Wyświetl wszystkie okna"
+    },
+    "open_urls": {
+        "message": "Otwórz wszystkie adresy URL w nowych kartach"
+    },
+    "download_html": {
+        "message": "Pobierz jako HTML"
+    },
+    "sort_all_tabs": {
+        "message": "Sortuj wszystkie okna"
+    },
+    "sort_current_window": {
+        "message": "Sortuj obecne okno"
+    },
+    "extract_domain": {
+        "message": "Wydobądź tę domenę"
+    },
+    "close_duplicates": {
+        "message": "Zamknij duplikaty"
+    },
+    "only_fully_qualified": {
+        "message": "Tylko w pełni kwalifikowane adresy URL zostaną otwarte."
+    },
+    "closed_duplicates_alert": {
+        "message": "Zamknięto {count} duplikatów kart."
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "extension_name": {
+        "message": "ZenTabs - Tab Manager"
+    },
+    "description": {
+        "message": "Organize your browsing experience by exporting and importing URLs of tabs to text and sorting them."
+    },
+    "include_titles": {
+        "message": "Include titles"
+    },
+    "include_all_windows": {
+        "message": "Include all windows"
+    },
+    "open_urls": {
+        "message": "Open all URLs in new tabs"
+    },
+    "download_html": {
+        "message": "Download as HTML"
+    },
+    "sort_all_tabs": {
+        "message": "Sort All Tabs"
+    },
+    "sort_current_window": {
+        "message": "Sort This Window"
+    },
+    "extract_domain": {
+        "message": "Extract This Domain"
+    },
+    "close_duplicates": {
+        "message": "Close Duplicates"
+    },
+    "only_fully_qualified": {
+        "message": "Only fully qualified URLs will be opened."
+    },
+    "closed_duplicates_alert": {
+        "message": "Closed {count} duplicate tabs."
+    }
+}

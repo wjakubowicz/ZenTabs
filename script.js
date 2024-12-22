@@ -48,7 +48,7 @@
                 chrome.tabs.create({ url: nt, active: false });
             });
         } else {
-            alert('Only fully qualified URLs will be opened.');
+            alert('only_fully_qualified');
         }
     };
 
@@ -96,7 +96,7 @@
             duplicates.forEach(tab => {
                 chrome.tabs.remove(tab.id);
             });
-            alert(`Closed ${duplicates.length} duplicate tabs.`);
+            alert('closed_duplicates_alert', { count: duplicates.length });
         });
     };
 

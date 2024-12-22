@@ -8,6 +8,7 @@
     <script src="libs/bootstrap.min.js"></script>
     <script src="libs/jquery-3.7.1.min.js"></script>
     <script src="script.js"></script>
+    <script src="localization.js"></script>
     <style>
         @font-face {
             font-family: 'Roboto';
@@ -88,28 +89,28 @@
         <form>
             <div class="form-group form-check">
                 <input id="inclTitle" type="checkbox" class="form-check-input" value="1" checked="checked">
-                <label class="form-check-label" for="inclTitle">Include titles</label>
+                <label class="form-check-label" for="inclTitle" data-i18n="include_titles">Include titles</label>
             </div>
             <div class="form-group form-check">
                 <input id="inclAll" type="checkbox" class="form-check-input" value="1">
-                <label class="form-check-label" for="inclAll">Include all windows</label>
+                <label class="form-check-label" for="inclAll" data-i18n="include_all_windows">Include all windows</label>
             </div>
             <div class="form-group">
                 <textarea id="content" class="form-control"></textarea>
             </div>
             <div class="btn-group">
-                <button type="button" id="btOpenTabs" class="btn btn-primary">Open all URLs in new tabs</button>
-                <button type="button" id="download" class="btn btn-primary">Download as HTML</button>
+                <button type="button" id="btOpenTabs" class="btn btn-primary" data-i18n="open_urls">Open all URLs in new tabs</button>
+                <button type="button" id="download" class="btn btn-primary" data-i18n="download_html">Download as HTML</button>
             </div>
             <br>
             <div class="btn-group">
-                <button id="all" type="button" class="btn btn-outline-success">Sort All Tabs</button>
-                <button id="window" type="button" class="btn btn-outline-success">Sort This Window</button>
-                <button id="domain" type="button" class="btn btn-outline-success">Extract This Domain</button>
+                <button id="all" type="button" class="btn btn-outline-success" data-i18n="sort_all_tabs">Sort All Tabs</button>
+                <button id="window" type="button" class="btn btn-outline-success" data-i18n="sort_current_window">Sort This Window</button>
+                <button id="domain" type="button" class="btn btn-outline-success" data-i18n="extract_domain">Extract This Domain</button>
             </div>
             <br>
             <div class="btn-group">
-                <button id="closeDuplicates" type="button" class="btn btn-outline-danger">Close Duplicates</button>
+                <button id="closeDuplicates" type="button" class="btn btn-outline-danger" data-i18n="close_duplicates">Close Duplicates</button>
             </div>
         </form>
     </div>
