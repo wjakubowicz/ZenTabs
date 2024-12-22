@@ -18,16 +18,22 @@
 
     const expTabs = (windows) => {
         const numWindows = windows.length;
-        const exportAll = document.getElementById('inclAll').checked ? 1 : 0;
+        const inclAllElement = document.getElementById('inclAll');
+        const exportAll = inclAllElement ? (inclAllElement.checked ? 1 : 0) : 0;
         const contentElement = document.getElementById('content');
-        contentElement.value = '';
+        if (contentElement) {
+            contentElement.value = '';
+        } else {
+            return;
+        }
         for (let i = 0; i < numWindows; i++) {
             const win = windows[i];
             if (targetWindow.id === win.id || exportAll === 1) {
                 const numTabs = win.tabs.length;
                 for (let j = 0; j < numTabs; j++) {
                     const tab = win.tabs[j];
-                    if (document.getElementById('inclTitle').checked) {
+                    const inclTitleElement = document.getElementById('inclTitle');
+                    if (inclTitleElement && inclTitleElement.checked) {
                         contentElement.value += `${tab.title}\n`;
                     }
                     contentElement.value += `${tab.url}\n\n`;
@@ -108,6 +114,8 @@
                 console.log('Action:', action);
                 if (action === 'closeDuplicates') {
                     closeDuplicateTabs();
+                } else if (action === 'settingsBtn') {
+                    chrome.runtime.openOptionsPage();
                 } else {
                     chrome.runtime.sendMessage(
                         {
@@ -130,11 +138,24 @@
     };
 
     const init = () => {
-        document.querySelector('#btOpenTabs').addEventListener('click', openTabs);
-        document.querySelector('#inclTitle').addEventListener('click', start);
-        document.querySelector('#inclAll').addEventListener('click', start);
-        document.querySelector('#download').addEventListener('click', download);
+        const btOpenTabs = document.querySelector('#btOpenTabs');
+        if (btOpenTabs) {
+            btOpenTabs.addEventListener('click', openTabs);
+        }
+        const inclTitle = document.querySelector('#inclTitle');
+        if (inclTitle) {
+            inclTitle.addEventListener('click', start);
+        }
+        const inclAll = document.querySelector('#inclAll');
+        if (inclAll) {
+            inclAll.addEventListener('click', start);
+        }
+        const downloadBtn = document.querySelector('#download');
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', download);
+        }
         start();
+        feather.replace();
     };
 
     document.addEventListener('DOMContentLoaded', init);

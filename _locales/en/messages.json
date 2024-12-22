@@ -34,5 +34,11 @@
     },
     "closed_duplicates_alert": {
         "message": "Closed {count} duplicate tabs."
+    },
+    "settings_title": {
+        "message": "Settings"
+    },
+    "enable_dark_mode": {
+        "message": "Enable Dark Mode"
     }
 }

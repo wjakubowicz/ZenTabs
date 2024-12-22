@@ -34,5 +34,11 @@
     },
     "closed_duplicates_alert": {
         "message": "Zamknięto {count} duplikatów kart."
+    },
+    "settings_title": {
+        "message": "Ustawienia"
+    },
+    "enable_dark_mode": {
+        "message": "Włącz tryb ciemny"
     }
 }

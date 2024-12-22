@@ -12,6 +12,10 @@ It provides functionalities to manage tabs across multiple windows, sort tabs, a
 - **Close Duplicate Tabs**: Identify and close duplicate tabs.
 - **Download as HTML**: Download the list of URLs as an HTML file with clickable links.
 
+## Settings
+- **Dark Mode Toggle**: Switch between light and dark themes to suit your preference.
+- **Localization Support**: Choose your preferred language and currency formats for an improved user experience.
+
 ## Installation
 
 1. Clone the repository:
