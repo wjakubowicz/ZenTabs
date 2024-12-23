@@ -1,7 +1,7 @@
 # ZenTabs - Tab Manager
 
-ZenTabs is a Chrome extension compatible with Manifest V3, designed to help you organize your browsing experience by exporting and importing URLs of tabs to text and sorting them.
-It provides functionalities to manage tabs across multiple windows, sort tabs, and close duplicate tabs.
+ZenTabs is a Manifest V3 compatible Chrome extension designed to organize your browsing experience.
+It allows exporting and importing URLs of tabs to text, sorting and managing them across multiple windows and closing duplicates.
 
 ## Features
 
@@ -14,7 +14,7 @@ It provides functionalities to manage tabs across multiple windows, sort tabs, a
 
 ## Settings
 - **Dark Mode Toggle**: Switch between light and dark themes to suit your preference.
-- **Localization Support**: Choose your preferred language and currency formats for an improved user experience.
+- **Localization Support**: Choose your preferred language for an improved user experience.
 
 ## Installation
 
@@ -37,14 +37,6 @@ It provides functionalities to manage tabs across multiple windows, sort tabs, a
     - **Sort This Window**: Sorts tabs within the current window.
     - **Extract This Domain**: Extracts all tabs with the same domain as the active tab into a new window and sorts them.
     - **Close Duplicates**: Closes duplicate tabs.
-
-## Files
-
-- [`manifest.json`](manifest.json): The manifest file that defines the extension's metadata and permissions.
-- [`popup.html`](popup.html): The HTML file for the extension's popup interface.
-- [`script.js`](script.js): The main JavaScript file that handles the popup's functionality.
-- [`background.js`](background.js): The background script that manages tab sorting and other background tasks.
-- [`libs/`](libs/): Directory containing external libraries (Bootstrap, jQuery, etc.).
 
 ## Permissions
 

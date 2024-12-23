@@ -43,5 +43,11 @@
     },
     "select_language": {
         "message": "Select Language"
+    },
+    "settings_appearance": {
+        "message": "Appearance"
+    },
+    "settings_language": {
+        "message": "Language"
     }
 }

@@ -8,8 +8,8 @@
     <script src="libs/jquery-3.7.1.min.js"></script>
     <script src="libs/feather.min.js"></script>
     <script src="localization.js"></script>
-	<script src="script.js"></script>
-	<script src="settings.js"></script>
+    <script src="script.js"></script>
+    <script src="settings.js"></script>
 
     <title data-i18n="settings_title">Settings</title>
     <style>
@@ -18,47 +18,77 @@
             font-family: 'Roboto', sans-serif;
             background-color: #f8f9fa;
             color: #212529;
+            transition: all 0.3s ease;
         }
         .dark-mode {
-            background-color: #000000;
+            background-color: #121212;
             color: #ffffff;
         }
-        .dark-mode .container {
-            background-color: #1c1c1c;
+        .dark-mode .card {
+            background-color: #1e1e1e;
+            border-color: #333;
         }
-        .dark-mode .form-check-label {
+        .dark-mode .form-check-label,
+        .dark-mode .card-title {
             color: #ffffff;
         }
-        .dark-mode .btn {
-            background-color: #444444;
-            color: #ffffff;
-            border: none;
+        .dark-mode .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0a58ca;
         }
         .dark-mode .form-control {
             background-color: #333333;
             color: #ffffff;
             border: 1px solid #555555;
         }
+        .settings-icon {
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .card {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-switch .form-check-input {
+            width: 3em;
+        }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1 data-i18n="settings_title">
-            <i data-feather="settings"></i> Settings
-        </h1>
-        <div class="form-group form-check">
-            <input id="darkModeToggle" type="checkbox" class="form-check-input">
-            <label class="form-check-label" for="darkModeToggle" data-i18n="enable_dark_mode">
-                <i data-feather="moon"></i> Enable Dark Mode
-            </label>
+    <div class="container py-4">
+        <div class="d-flex align-items-center mb-4">
+            <i data-feather="settings" class="settings-icon"></i>
+            <h1 class="mb-0" data-i18n="settings_title">Settings</h1>
         </div>
-        <div class="form-group">
-            <label for="languageSelect" data-i18n="select_language">Select Language</label>
-            <select id="languageSelect" class="form-control">
-            </select>
-        </div>
-    </div>	
-</body>
 
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title"><i data-feather="eye" class="settings-icon"></i><span data-i18n="settings_appearance">Appearance</span></h5>
+                        <div class="form-group form-switch mb-3">
+                            <input id="darkModeToggle" type="checkbox" class="form-check-input" role="switch">
+                            <label class="form-check-label ms-2" for="darkModeToggle" data-i18n="enable_dark_mode">
+                                <i data-feather="moon" class="me-2"></i>Dark Mode
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title"><i data-feather="globe" class="settings-icon"></i><span data-i18n="settings_language">Language</span></h5>
+                        <div class="form-group">
+                            <label for="languageSelect" class="form-label" data-i18n="select_language">Select Language</label>
+                            <select id="languageSelect" class="form-select">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
