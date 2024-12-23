@@ -33,12 +33,15 @@
         "message": "Tylko w pełni kwalifikowane adresy URL zostaną otwarte."
     },
     "closed_duplicates_alert": {
-        "message": "Zamknięto {count} duplikatów kart."
+        "message": "Zamknięto $1 duplikatów kart."
     },
     "settings_title": {
         "message": "Ustawienia"
     },
     "enable_dark_mode": {
         "message": "Włącz tryb ciemny"
+    },
+    "select_language": {
+        "message": "Wybierz język"
     }
 }

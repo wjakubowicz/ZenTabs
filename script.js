@@ -102,7 +102,7 @@
             duplicates.forEach(tab => {
                 chrome.tabs.remove(tab.id);
             });
-            alert('closed_duplicates_alert', { count: duplicates.length });
+            alert('closed_duplicates_alert', duplicates.length.toString());
         });
     };
 

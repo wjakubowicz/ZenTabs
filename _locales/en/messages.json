@@ -33,12 +33,15 @@
         "message": "Only fully qualified URLs will be opened."
     },
     "closed_duplicates_alert": {
-        "message": "Closed {count} duplicate tabs."
+        "message": "Closed $1 duplicate tabs."
     },
     "settings_title": {
         "message": "Settings"
     },
     "enable_dark_mode": {
         "message": "Enable Dark Mode"
+    },
+    "select_language": {
+        "message": "Select Language"
     }
 }
