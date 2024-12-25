@@ -1,45 +1,32 @@
 (() => {
-    let targetWindow = null;
-    let tabCount = 0;
-
-    const start = () => {
-        chrome.windows.getCurrent(getWindows);
+    const getTabs = async (windowId) => {
+        const tabs = await chrome.tabs.query({ windowId });
+        return tabs;
     };
 
-    const getWindows = (win) => {
-        targetWindow = win;
-        chrome.tabs.query({ windowId: targetWindow.id }, getTabs);
+    const getAllWindows = async () => {
+        const currentWindow = await chrome.windows.getCurrent();
+        const allWindows = await chrome.windows.getAll({ populate: true });
+        return { currentWindow, allWindows };
     };
 
-    const getTabs = (tabs) => {
-        tabCount = tabs.length;
-        chrome.windows.getAll({ populate: true }, expTabs);
-    };
+    const exportTabs = async () => {
+        const { currentWindow, allWindows } = await getAllWindows();
+        const content = document.getElementById('content');
+        const inclAll = document.getElementById('inclAll')?.checked;
+        const inclTitle = document.getElementById('inclTitle')?.checked;
 
-    const expTabs = (windows) => {
-        const numWindows = windows.length;
-        const inclAllElement = document.getElementById('inclAll');
-        const exportAll = inclAllElement ? (inclAllElement.checked ? 1 : 0) : 0;
-        const contentElement = document.getElementById('content');
-        if (contentElement) {
-            contentElement.value = '';
-        } else {
-            return;
-        }
-        for (let i = 0; i < numWindows; i++) {
-            const win = windows[i];
-            if (targetWindow.id === win.id || exportAll === 1) {
-                const numTabs = win.tabs.length;
-                for (let j = 0; j < numTabs; j++) {
-                    const tab = win.tabs[j];
-                    const inclTitleElement = document.getElementById('inclTitle');
-                    if (inclTitleElement && inclTitleElement.checked) {
-                        contentElement.value += `${tab.title}\n`;
-                    }
-                    contentElement.value += `${tab.url}\n\n`;
-                }
+        if (!content) return;
+        content.value = '';
+
+        allWindows.forEach(win => {
+            if (currentWindow.id === win.id || inclAll) {
+                win.tabs.forEach(tab => {
+                    if (inclTitle) content.value += `${tab.title}\n`;
+                    content.value += `${tab.url}\n\n`;
+                });
             }
-        }
+        });
     };
 
     const openTabs = () => {
@@ -48,11 +35,10 @@
             "(^|[ \t\r\n])((ftp|http|https|news|file|view-source|chrome):(([A-Za-z0-9$_.+!*(),;/?:@&~=-])|%[A-Fa-f0-9]{2}){2,}(#([a-zA-Z0-9][a-zA-Z0-9$_.+!*(),;/?:@&~=%-]*))?([A-Za-z0-9$_+!*();/?:~-])*)",
             "g"
         );
-        const newTabs = content.match(rExp);
-        if (newTabs) {
-            newTabs.forEach(nt => {
-                chrome.tabs.create({ url: nt, active: false });
-            });
+        const urls = content.match(rExp);
+        
+        if (urls) {
+            urls.forEach(url => chrome.tabs.create({ url, active: false }));
         } else {
             alert('only_fully_qualified');
         }
@@ -60,114 +46,101 @@
 
     const download = () => {
         const content = document.getElementById('content').value;
-        const contentArr = content.split('\n\n');
-        let data = '<html><head></head><body>';
-        contentArr.forEach(contentItem => {
-            const contentUrl = contentItem.split('\n');
-            if (document.getElementById('inclTitle').checked) {
-                data += `<a href="${contentUrl[1]}">${contentUrl[0]}</a><br/>`;
-            } else {
-                data += `<a href="${contentItem}">${contentItem}</a><br/>`;
-            }
-        });
-        data += '</body></html>';
+        const inclTitle = document.getElementById('inclTitle').checked;
+        const html = content.split('\n\n')
+            .map(item => {
+                const [title, url] = item.split('\n');
+                return inclTitle 
+                    ? `<a href="${url}">${title}</a><br/>`
+                    : `<a href="${item}">${item}</a><br/>`;
+            })
+            .join('');
 
-        const blob = new Blob([data], { type: "text/html;charset=utf-8" });
-        const url = URL.createObjectURL(blob);
+        const blob = new Blob([`<html><head></head><body>${html}</body></html>`], 
+            { type: "text/html;charset=utf-8" });
+        
         const a = document.createElement('a');
-
+        a.href = URL.createObjectURL(blob);
         a.download = "tabs.html";
-        a.href = url;
         a.click();
     };
 
-    const findDuplicateTabs = (tabs) => {
+    let i18nAlert = null;
+
+    const setI18nAlert = () => {
+        i18nAlert = (messageKey, ...args) => {
+            window.alert(chrome.i18n.getMessage(messageKey, args));
+        };
+    };
+
+    const closeDuplicateTabs = async () => {
+        const tabs = await chrome.tabs.query({});
         const tabUrls = new Set();
-        const duplicateTabs = [];
-
-        tabs.forEach(tab => {
-            if (tabUrls.has(tab.url)) {
-                duplicateTabs.push(tab);
-            } else {
-                tabUrls.add(tab.url);
-            }
+        const duplicates = tabs.filter(tab => {
+            if (tabUrls.has(tab.url)) return true;
+            tabUrls.add(tab.url);
+            return false;
         });
 
-        return duplicateTabs;
+        duplicates.forEach(tab => chrome.tabs.remove(tab.id));
+        if (i18nAlert) {
+            i18nAlert('closed_duplicates_alert', duplicates.length.toString());
+        }
     };
 
-    const closeDuplicateTabs = () => {
-        chrome.tabs.query({}, (tabs) => {
-            const duplicates = findDuplicateTabs(tabs);
-            duplicates.forEach(tab => {
-                chrome.tabs.remove(tab.id);
-            });
-            alert('closed_duplicates_alert', duplicates.length.toString());
+    const handleButtonClick = async (action) => {
+        if (action === 'closeDuplicates') {
+            await closeDuplicateTabs();
+        } else if (action === 'settingsBtn') {
+            chrome.runtime.openOptionsPage();
+        } else {
+            chrome.runtime.sendMessage(
+                { action: 'sort', args: [action] },
+                () => chrome.runtime.lastError || window.close()
+            );
+        }
+    };
+
+    const initI18n = async () => {
+        const { language = 'en' } = await chrome.storage.sync.get(['language']);
+        const messages = await fetch(chrome.runtime.getURL(`_locales/${language}/messages.json`))
+            .then(res => res.json());
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (messages[key]) el.textContent = messages[key].message;
         });
+
+        setI18nAlert();
     };
 
-    const setup = ($) => {
-        $('.btn').each(function() {
-            const $button = $(this);
-            const action = $button.attr('id');
-            $button.click(function() {
-                console.log('Action:', action);
-                if (action === 'closeDuplicates') {
-                    closeDuplicateTabs();
-                } else if (action === 'settingsBtn') {
-                    chrome.runtime.openOptionsPage();
-                } else {
-                    chrome.runtime.sendMessage(
-                        {
-                            'action': 'sort',
-                            'args': [action],
-                        },
-                        function(response) {
-                            if (chrome.runtime.lastError) {
-                                console.error('Error:', chrome.runtime.lastError.message);
-                            } else {
-                                console.log('Sort complete; closing popup');
-                                window.close();
-                            }
-                        }
-                    );
-                }
-            });
-            console.log('Registered action:', action);
+    const init = async () => {
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', () => handleButtonClick(btn.id));
         });
-    };
 
-    const init = () => {
-        const btOpenTabs = document.querySelector('#btOpenTabs');
-        if (btOpenTabs) {
-            btOpenTabs.addEventListener('click', openTabs);
-        }
-        const inclTitle = document.querySelector('#inclTitle');
-        if (inclTitle) {
-            inclTitle.addEventListener('click', start);
-        }
-        const inclAll = document.querySelector('#inclAll');
-        if (inclAll) {
-            inclAll.addEventListener('click', start);
-        }
-        const downloadBtn = document.querySelector('#download');
-        if (downloadBtn) {
-            downloadBtn.addEventListener('click', download);
-        }
-        start();
+        const eventMap = {
+            '#btOpenTabs': openTabs,
+            '#inclTitle': exportTabs,
+            '#inclAll': exportTabs,
+            '#download': download
+        };
+
+        Object.entries(eventMap).forEach(([selector, handler]) => {
+            document.querySelector(selector)?.addEventListener('click', handler);
+        });
+
+        await exportTabs();
         feather.replace();
+
+        if (window.location.pathname.endsWith('popup.html')) {
+            const { popupWidth } = await chrome.storage.sync.get(['popupWidth']);
+            if (popupWidth) document.body.style.width = `${popupWidth}px`;
+        }
     };
 
-    document.addEventListener('DOMContentLoaded', () => {
-        init();
-
-        chrome.storage.sync.get(['popupWidth'], (res) => {
-            if (window.location.pathname.endsWith('popup.html')) {
-                if (res.popupWidth) {
-                    document.body.style.width = res.popupWidth + 'px';
-                }
-            }
-        });
+    document.addEventListener('DOMContentLoaded', async () => {
+        await initI18n();
+        await init();
     });
-    jQuery(setup);
 })();
