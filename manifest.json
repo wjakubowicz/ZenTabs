@@ -4,7 +4,7 @@
     "description": "__MSG_description__",
     "manifest_version": 3,
 
-    "permissions": ["tabs", "activeTab", "scripting", "storage", "windows"],
+    "permissions": ["tabs", "activeTab", "scripting", "storage", "windows", "commands", "notifications"],
 
     "icons": {
         "16": "16icon.png",
@@ -31,5 +31,17 @@
     "options_ui": {
         "page": "settings.html",
         "open_in_tab": true
+    },
+
+    "commands": {
+        "sort_all_tabs": {
+            "description": "__MSG_sort_all_tabs__"
+        },
+        "sort_current_window": {
+            "description": "__MSG_sort_current_window__"
+        },
+        "close_duplicates": {
+            "description": "__MSG_close_duplicates__"
+        }
     }
 }

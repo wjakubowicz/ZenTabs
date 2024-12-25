@@ -176,4 +176,73 @@
     });
 
     chrome.runtime.onMessage.addListener(handleMessage);
+
+    chrome.commands.onCommand.addListener((command) => {
+        if (command === "sort_all_tabs") {
+            sortAllTabs();
+        } else if (command === "sort_current_window") {
+            sortCurrentWindowTabs();
+        } else if (command === "close_duplicates") {
+            closeDuplicateTabs();
+        }
+    });
+
+    const sortAllTabs = () => {
+        chrome.windows.getAll({ populate: true }, (windows) => {
+            windows.forEach((window) => {
+                sortTabs(window.tabs, window.id);
+            });
+        });
+    };
+
+    const sortCurrentWindowTabs = () => {
+        chrome.windows.getCurrent({ populate: true }, (window) => {
+            sortTabs(window.tabs, window.id);
+        });
+    };
+
+    const sortTabs = (tabs, windowId) => {
+        const sortedTabs = tabs.slice().sort((a, b) => a.title.localeCompare(b.title));
+        sortedTabs.forEach((tab, index) => {
+            chrome.tabs.move(tab.id, { index: index }, () => {
+                if (chrome.runtime.lastError) {
+                    console.error(chrome.runtime.lastError);
+                }
+            });
+        });
+    };
+
+    const findDuplicateTabs = (tabs) => {
+        const tabUrls = new Set();
+        const duplicateTabs = [];
+
+        tabs.forEach(tab => {
+            if (tabUrls.has(tab.url)) {
+                duplicateTabs.push(tab);
+            } else {
+                tabUrls.add(tab.url);
+            }
+        });
+
+        return duplicateTabs;
+    };
+
+    const closeDuplicateTabs = () => {
+        chrome.tabs.query({}, (tabs) => {
+            const duplicates = findDuplicateTabs(tabs);
+            duplicates.forEach(tab => {
+                chrome.tabs.remove(tab.id, () => {
+                    if (chrome.runtime.lastError) {
+                        console.error(chrome.runtime.lastError);
+                    }
+                });
+            });
+            chrome.notifications.create({
+                type: 'basic',
+                iconUrl: '128icon.png',
+                title: chrome.i18n.getMessage('extension_name'),
+                message: chrome.i18n.getMessage('closed_duplicates_alert', duplicates.length.toString()),
+            });
+        });
+    };
 })();
