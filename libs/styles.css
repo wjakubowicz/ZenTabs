@@ -1,0 +1,129 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('libs/roboto-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('libs/roboto-bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+* {
+    font-size: 14px;
+}
+
+/* Common Body Styles */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark Mode */
+.dark-mode {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.dark-mode .container,
+.dark-mode .card {
+    background-color: #1c1c1c;
+}
+
+.dark-mode textarea,
+.dark-mode .form-control {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+}
+
+.dark-mode button {
+    background-color: #444444;
+    color: #ffffff;
+    border: none;
+}
+
+.dark-mode .form-check-label,
+.dark-mode .card-title {
+    color: #ffffff;
+}
+
+/* Popup Body */
+body.popup {
+    width: 380px;
+}
+
+/* Container */
+.container {
+    background: #202124;
+    padding: 10px;
+    width: 100%;
+    position: relative;
+}
+
+/* Textarea */
+textarea {
+    width: 100%;
+    height: 320px;
+    resize: none;
+    border: 1px solid #5f6368;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-check-label {
+    margin-left: 5px;
+}
+
+.form-check-input {
+    width: 14px;
+    height: 14px;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Settings Styles */
+body.settings {
+    padding: 20px;
+    background-color: #f8f9fa;
+    color: #212529;
+    transition: all 0.3s ease;
+}
+
+body.settings .container {
+    background-color: transparent;
+}
+
+.settings-icon {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.card {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-switch .form-check-input {
+    width: 3em;
+}

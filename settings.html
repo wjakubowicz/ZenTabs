@@ -3,60 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="settings_title">Settings</title>
+
     <link href="libs/bootstrap.min.css" rel="stylesheet">
+    <link href="libs/styles.css" rel="stylesheet">
+
     <script src="libs/bootstrap.min.js"></script>
     <script src="libs/jquery-3.7.1.min.js"></script>
     <script src="libs/feather.min.js"></script>
     <script src="localization.js"></script>
     <script src="script.js"></script>
     <script src="settings.js"></script>
-
-    <title data-i18n="settings_title">Settings</title>
-    <style>
-        body {
-            padding: 20px;
-            font-family: 'Roboto', sans-serif;
-            background-color: #f8f9fa;
-            color: #212529;
-            transition: all 0.3s ease;
-        }
-        .dark-mode {
-            background-color: #121212;
-            color: #ffffff;
-        }
-        .dark-mode .card {
-            background-color: #1e1e1e;
-            border-color: #333;
-        }
-        .dark-mode .form-check-label,
-        .dark-mode .card-title {
-            color: #ffffff;
-        }
-        .dark-mode .btn-primary {
-            background-color: #0d6efd;
-            border-color: #0a58ca;
-        }
-        .dark-mode .form-control {
-            background-color: #333333;
-            color: #ffffff;
-            border: 1px solid #555555;
-        }
-        .settings-icon {
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-        .card {
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .form-switch .form-check-input {
-            width: 3em;
-        }
-    </style>
 </head>
 
-<body>
+<body class="settings">
     <div class="container py-4">
         <div class="d-flex align-items-center mb-4">
             <i data-feather="settings" class="settings-icon"></i>

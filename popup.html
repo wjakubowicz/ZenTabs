@@ -3,113 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link href="libs/bootstrap.min.css" rel="stylesheet">
+    <link href="libs/styles.css" rel="stylesheet">
+    
     <script src="libs/bootstrap.min.js"></script>
     <script src="libs/jquery-3.7.1.min.js"></script>
     <script src="libs/feather.min.js"></script>
     <script src="script.js"></script>
     <script src="localization.js"></script>
     <script src="settings.js"></script>
-
-    <style>
-        @font-face {
-            font-family: 'Roboto';
-            src: url('libs/roboto-regular.woff2') format('woff2');
-            font-weight: 400;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: 'Roboto';
-            src: url('libs/roboto-bold.woff2') format('woff2');
-            font-weight: 700;
-            font-style: normal;
-        }
-
-        * {
-            font-size: 14px;
-        }
-
-        body {
-            width: 380px;
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .dark-mode {
-            background-color: #000000;
-            color: #ffffff;
-        }
-
-        .dark-mode .container {
-            background-color: #1c1c1c;
-        }
-
-        .dark-mode textarea {
-            background-color: #333333;
-            color: #ffffff;
-            border: 1px solid #555555;
-        }
-
-        .dark-mode button {
-            background-color: #444444;
-            color: #ffffff;
-            border: none;
-        }
-
-        textarea {
-            width: 100%;
-            height: 320px;
-            resize: none;
-            border: 1px solid #5f6368;
-            border-radius: 4px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-            flex-grow: 1;
-        }
-
-        .container {
-            background: #202124;
-            padding: 10px;
-            width: 100%;
-            position: relative;
-        }
-
-        .form-group {
-            margin-bottom: 10px;
-        }
-
-        .form-check {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .form-check-label {
-            margin-left: 5px;
-        }
-
-        .form-check-input {
-            width: 14px;
-            height: 14px;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: space-between;
-        }
-    </style>
 </head>
-<body>
+
+<body class="popup">
     <div class="container">
         <div class="settings-button" style="position: absolute; top: 10px; right: 10px;">
             <button id="settingsBtn" type="button" class="btn btn-secondary"><i data-feather="settings"></i></button>
