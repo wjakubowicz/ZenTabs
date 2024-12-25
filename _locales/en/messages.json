@@ -49,5 +49,11 @@
     },
     "settings_language": {
         "message": "Language"
+    },
+    "settings_popup_size": {
+        "message": "Popup Size"
+    },
+    "popup_width_label": {
+        "message": "Popup Width"
     }
 }

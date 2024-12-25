@@ -49,5 +49,11 @@
     },
     "settings_language": {
         "message": "Język"
+    },
+    "settings_popup_size": {
+        "message": "Rozmiar okna"
+    },
+    "popup_width_label": {
+        "message": "Szerokość okna"
     }
 }

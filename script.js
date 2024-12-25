@@ -158,6 +158,16 @@
         feather.replace();
     };
 
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', () => {
+        init();
+
+        chrome.storage.sync.get(['popupWidth'], (res) => {
+            if (window.location.pathname.endsWith('popup.html')) {
+                if (res.popupWidth) {
+                    document.body.style.width = res.popupWidth + 'px';
+                }
+            }
+        });
+    });
     jQuery(setup);
 })();
