@@ -121,9 +121,27 @@
         }
     };
 
+    const closeDuplicateTabsCurrent = async () => {
+        const currentWindow = await chrome.windows.getCurrent();
+        const tabs = await chrome.tabs.query({ windowId: currentWindow.id });
+        const tabUrls = new Set();
+        const duplicates = tabs.filter(tab => {
+            if (tabUrls.has(tab.url)) return true;
+            tabUrls.add(tab.url);
+            return false;
+        });
+
+        duplicates.forEach(tab => chrome.tabs.remove(tab.id));
+        if (i18nAlert) {
+            i18nAlert('closed_duplicates_current_alert', duplicates.length.toString());
+        }
+    };
+
     const handleButtonClick = async (action) => {
         if (action === 'closeDuplicates') {
             await closeDuplicateTabs();
+        } else if (action === 'closeDuplicatesCurrent') {
+            await closeDuplicateTabsCurrent();
         } else if (action === 'settingsBtn') {
             chrome.runtime.openOptionsPage();
         } else if (action === 'exportTabs') {

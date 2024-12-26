@@ -26,11 +26,17 @@
     "close_duplicates": {
         "message": "Close Duplicates"
     },
+    "close_duplicates_current": {
+        "message": "Close Duplicates in this window"
+    },
     "only_fully_qualified": {
         "message": "Only fully qualified URLs will be opened."
     },
     "closed_duplicates_alert": {
         "message": "Closed $1 duplicate tabs."
+    },
+    "closed_duplicates_current_alert": {
+        "message": "Closed $1 duplicate tabs in this window."
     },
     "settings_title": {
         "message": "Settings"

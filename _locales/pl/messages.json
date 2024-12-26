@@ -26,11 +26,17 @@
     "close_duplicates": {
         "message": "Zamknij duplikaty"
     },
+    "close_duplicates_current": {
+        "message": "Zamknij duplikaty w tym oknie"
+    },
     "only_fully_qualified": {
         "message": "Tylko w pełni kwalifikowane adresy URL zostaną otwarte."
     },
     "closed_duplicates_alert": {
         "message": "Zamknięto $1 duplikatów kart."
+    },
+    "closed_duplicates_current_alert": {
+        "message": "Zamknięto $1 duplikatów kart w tym oknie."
     },
     "settings_title": {
         "message": "Ustawienia"
