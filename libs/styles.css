@@ -29,9 +29,17 @@ body {
     color: #ffffff;
 }
 
+.dark-mode.settings {
+    background-color: #121212;
+}
+
 .dark-mode .container,
 .dark-mode .card {
     background-color: #1c1c1c;
+}
+
+.dark-mode .card-body {
+    color: #ffffff;
 }
 
 .dark-mode textarea,
@@ -52,6 +60,23 @@ body {
     color: #ffffff;
 }
 
+.dark-mode .form-label,
+.dark-mode .settings-icon,
+.dark-mode h1,
+.dark-mode select.form-select {
+    color: #ffffff;
+}
+
+.dark-mode select.form-select {
+    background-color: #333333;
+    border-color: #555555;
+}
+
+.dark-mode select.form-select option {
+    background-color: #333333;
+    color: #ffffff;
+}
+
 /* Popup Body */
 body.popup {
     width: 380px;
@@ -59,7 +84,7 @@ body.popup {
 
 /* Container */
 .container {
-    background: #202124;
+    background: #ffffff;
     padding: 10px;
     width: 100%;
     position: relative;

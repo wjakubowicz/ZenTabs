@@ -40,7 +40,7 @@
         if (urls) {
             urls.forEach(url => chrome.tabs.create({ url, active: false }));
         } else {
-            alert('only_fully_qualified');
+            i18nAlert('only_fully_qualified');
         }
     };
 
