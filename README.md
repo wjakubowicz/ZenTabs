@@ -52,7 +52,7 @@ Contributions are welcome! Please open an issue or submit a pull request with yo
 ---
 
 <p align="center">
-  <img src="image.png"/>
+  <img src="images/image.png"/>
 </p>
 
 ---
