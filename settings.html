@@ -59,6 +59,33 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i data-feather="download" class="settings-icon"></i>
+                            <span data-i18n="export_tabs">Export Tabs</span>
+                        </h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="exportWindow" class="form-label" data-i18n="export_window">Export Window</label>
+                                <select id="exportWindow" class="form-select">
+                                    <option value="current" data-i18n="current_window">Current Window</option>
+                                    <option value="all" data-i18n="all_windows">All Windows</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="exportFormat" class="form-label" data-i18n="export_format">Export Format</label>
+                                <select id="exportFormat" class="form-select">
+                                    <option value="html" data-i18n="format_html">HTML</option>
+                                    <option value="csv" data-i18n="format_csv">CSV</option>
+                                    <option value="json" data-i18n="format_json">JSON</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" id="exportTabs" class="btn btn-primary" data-i18n="export">Export</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

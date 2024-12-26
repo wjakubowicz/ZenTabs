@@ -44,25 +44,58 @@
         }
     };
 
-    const download = () => {
-        const content = document.getElementById('content').value;
-        const inclTitle = document.getElementById('inclTitle').checked;
-        const html = content.split('\n\n')
-            .map(item => {
-                const [title, url] = item.split('\n');
-                return inclTitle 
-                    ? `<a href="${url}">${title}</a><br/>`
-                    : `<a href="${item}">${item}</a><br/>`;
-            })
-            .join('');
-
-        const blob = new Blob([`<html><head></head><body>${html}</body></html>`], 
-            { type: "text/html;charset=utf-8" });
-        
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = "tabs.html";
-        a.click();
+    const download = async (windowSelection, format) => {
+        const { currentWindow, allWindows } = await getAllWindows();
+        let tabs = [];
+    
+        if (windowSelection === 'current') {
+            tabs = allWindows.find(win => win.id === currentWindow.id).tabs;
+        } else {
+            allWindows.forEach(win => {
+                tabs = tabs.concat(win.tabs);
+            });
+        }
+    
+        let blob;
+        let filename;
+        let mimeType;
+    
+        if (format === 'html') {
+            const html = tabs
+                .map(tab => `<a href="${tab.url}">${tab.title}</a><br/>`)
+                .join('');
+            blob = new Blob([`<html><head></head><body>${html}</body></html>`], { type: "text/html;charset=utf-8" });
+            filename = "tabs.html";
+            mimeType = "text/html;charset=utf-8";
+        } else if (format === 'csv') {
+            const csvContent = "data:text/csv;charset=utf-8," 
+                + tabs.map(tab => `"${tab.title}","${tab.url}"`).join("\n");
+            blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+            filename = "tabs.csv";
+            mimeType = "text/csv;charset=utf-8";
+        } else if (format === 'json') {
+            const jsonContent = JSON.stringify(tabs, null, 2);
+            blob = new Blob([jsonContent], { type: "application/json;charset=utf-8" });
+            filename = "tabs.json";
+            mimeType = "application/json;charset=utf-8";
+        }
+    
+        if (blob && filename) {
+            const a = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        } else {
+            if (i18nAlert) {
+                i18nAlert('download_failed');
+            } else {
+                console.error('Download failed: Blob or filename is undefined.');
+            }
+        }
     };
 
     let i18nAlert = null;
@@ -93,6 +126,10 @@
             await closeDuplicateTabs();
         } else if (action === 'settingsBtn') {
             chrome.runtime.openOptionsPage();
+        } else if (action === 'exportTabs') {
+            const windowSelection = document.getElementById('exportWindow').value;
+            const format = document.getElementById('exportFormat').value;
+            await download(windowSelection, format);
         } else {
             chrome.runtime.sendMessage(
                 { action: 'sort', args: [action] },
@@ -122,8 +159,7 @@
         const eventMap = {
             '#btOpenTabs': openTabs,
             '#inclTitle': exportTabs,
-            '#inclAll': exportTabs,
-            '#download': download
+            '#inclAll': exportTabs
         };
 
         Object.entries(eventMap).forEach(([selector, handler]) => {

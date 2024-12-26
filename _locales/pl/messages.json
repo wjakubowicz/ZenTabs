@@ -14,9 +14,6 @@
     "open_urls": {
         "message": "Otwórz wszystkie adresy URL w nowych kartach"
     },
-    "download_html": {
-        "message": "Pobierz jako HTML"
-    },
     "sort_all_tabs": {
         "message": "Sortuj wszystkie okna"
     },
@@ -55,5 +52,32 @@
     },
     "popup_width_label": {
         "message": "Szerokość okna"
+    },
+    "export_tabs": {
+        "message": "Eksportuj karty"
+    },
+    "export_window": {
+        "message": "Eksportuj okno"
+    },
+    "current_window": {
+        "message": "Obecne okno"
+    },
+    "all_windows": {
+        "message": "Wszystkie okna"
+    },
+    "export_format": {
+        "message": "Format eksportu"
+    },
+    "format_html": {
+        "message": "HTML"
+    },
+    "format_csv": {
+        "message": "CSV"
+    },
+    "format_json": {
+        "message": "JSON"
+    },
+    "export": {
+        "message": "Eksportuj"
     }
 }

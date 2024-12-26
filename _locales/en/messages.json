@@ -14,9 +14,6 @@
     "open_urls": {
         "message": "Open all URLs in new tabs"
     },
-    "download_html": {
-        "message": "Download as HTML"
-    },
     "sort_all_tabs": {
         "message": "Sort All Tabs"
     },
@@ -55,5 +52,32 @@
     },
     "popup_width_label": {
         "message": "Popup Width"
+    },
+    "export_tabs": {
+        "message": "Export tabs"
+    },
+    "export_window": {
+        "message": "Export window"
+    },
+    "current_window": {
+        "message": "Current window"
+    },
+    "all_windows": {
+        "message": "All windows"
+    },
+    "export_format": {
+        "message": "Export format"
+    },
+    "format_html": {
+        "message": "HTML"
+    },
+    "format_csv": {
+        "message": "CSV"
+    },
+    "format_json": {
+        "message": "JSON"
+    },
+    "export": {
+        "message": "Export"
     }
 }
