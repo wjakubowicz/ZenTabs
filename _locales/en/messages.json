@@ -15,19 +15,19 @@
         "message": "Open all URLs in new tabs"
     },
     "sort_all_tabs": {
-        "message": "Sort All Tabs"
+        "message": "Sort all tabs"
     },
     "sort_current_window": {
-        "message": "Sort This Window"
+        "message": "Sort this window"
     },
     "extract_domain": {
-        "message": "Extract This Domain"
+        "message": "Extract this domain"
     },
     "close_duplicates": {
-        "message": "Close Duplicates"
+        "message": "Close duplicates"
     },
     "close_duplicates_current": {
-        "message": "Close Duplicates in this window"
+        "message": "Close duplicates in this window"
     },
     "only_fully_qualified": {
         "message": "Only fully qualified URLs will be opened."
@@ -45,7 +45,7 @@
         "message": "Enable Dark Mode"
     },
     "select_language": {
-        "message": "Select Language"
+        "message": "Select language"
     },
     "settings_appearance": {
         "message": "Appearance"
@@ -54,10 +54,10 @@
         "message": "Language"
     },
     "settings_popup_size": {
-        "message": "Popup Size"
+        "message": "Popup size"
     },
     "popup_width_label": {
-        "message": "Popup Width"
+        "message": "Popup width"
     },
     "export_tabs": {
         "message": "Export tabs"
