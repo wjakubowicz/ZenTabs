@@ -58,6 +58,7 @@ Contributions are welcome! Please open an issue or submit a pull request with yo
     <img src="images/popup_dark.png" alt="Popup Dark" width="400"/>
   </div>
 </div>
+
 ---
 
 Enjoy a more organized browsing experience with ZenTabs!
