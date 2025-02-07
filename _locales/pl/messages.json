@@ -85,5 +85,11 @@
     },
     "export": {
         "message": "Eksportuj"
+    },
+    "settings_repo_info": {
+        "message": "© 2024-2025 Wojciech Jakubowicz."
+    },
+    "settings_source_link": {
+        "message": "Zobacz kod źródłowy na GitHub"
     }
 }
