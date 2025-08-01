@@ -91,5 +91,110 @@
     },
     "settings_source_link": {
         "message": "View source on GitHub"
+    },
+    "manager_title": {
+        "message": "ZenTabs - Tab Manager"
+    },
+    "tabs_viewer_title": {
+        "message": "Tabs Viewer"
+    },
+    "refresh": {
+        "message": "Refresh"
+    },
+    "close": {
+        "message": "Close"
+    },
+    "windows": {
+        "message": "Windows"
+    },
+    "tabs": {
+        "message": "Tabs"
+    },
+    "pinned": {
+        "message": "Pinned"
+    },
+    "no_windows_found": {
+        "message": "No windows found"
+    },
+    "no_windows_description": {
+        "message": "Unable to load window and tab information."
+    },
+    "error_loading_data": {
+        "message": "Error loading data"
+    },
+    "error_loading_description": {
+        "message": "Unable to load window and tab information."
+    },
+    "switch_to_tab": {
+        "message": "Switch to tab"
+    },
+    "close_tab": {
+        "message": "Close tab"
+    },
+    "focus_window": {
+        "message": "Focus"
+    },
+    "sort_window": {
+        "message": "Sort"
+    },
+    "search_placeholder": {
+        "message": "Search tabs by title, URL, or domain..."
+    },
+    "no_search_results": {
+        "message": "No matching tabs found"
+    },
+    "no_search_results_description": {
+        "message": "Try adjusting your search terms or clear the search to see all tabs."
+    },
+    "select_tabs": {
+        "message": "Select Tabs"
+    },
+    "exit_selection": {
+        "message": "Exit Selection"
+    },
+    "select_all": {
+        "message": "Select All"
+    },
+    "select_none": {
+        "message": "Select None"
+    },
+    "move_selected": {
+        "message": "Move Selected"
+    },
+    "tabs_selected": {
+        "message": "tabs selected"
+    },
+    "move_selected_tabs": {
+        "message": "Move Selected Tabs"
+    },
+    "move_tabs_description": {
+        "message": "Choose where to move the selected tabs:"
+    },
+    "cancel": {
+        "message": "Cancel"
+    },
+    "move_tabs": {
+        "message": "Move Tabs"
+    },
+    "create_new_window": {
+        "message": "Create New Window"
+    },
+    "window": {
+        "message": "Window"
+    },
+    "close_selected": {
+        "message": "Close Selected"
+    },
+    "try_again": {
+        "message": "Try Again"
+    },
+    "reload_page": {
+        "message": "Reload Page"
+    },
+    "initialization_error": {
+        "message": "Initialization Error"
+    },
+    "initialization_error_description": {
+        "message": "Failed to initialize ZenTabs."
     }
 }

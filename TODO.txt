@@ -1,13 +1,8 @@
 1. Window and tab view management
-- Displaying windows with open tabs
 - Expanding and collapsing the entire window view (bars with headings: Current Window, Window 1, ...)
 - Undo operations
-- Ability to search for tabs by link, title, etc.
 
 2. Tab operations
-- Selecting single or multiple tabs
-- Moving selected tabs to another or new window
-- Pinning tabs in a window
 - Faster removal of duplicate tabs
 
 3. Window operations

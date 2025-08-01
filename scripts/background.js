@@ -128,6 +128,9 @@
 		if (action === "sort") {
 			sortByMode(...args);
 			respond({ status: "sorting started" });
+		} else if (action === "openTabsViewer") {
+			chrome.tabs.create({ url: chrome.runtime.getURL("tabs-viewer.html") });
+			respond({ status: "tabs viewer opened" });
 		} else {
 			console.log("Unhandled message:", action);
 			respond({ status: "unhandled action" });
@@ -187,5 +190,9 @@
 
 	chrome.tabs.onCreated.addListener(updateTabBadge);
 	chrome.tabs.onRemoved.addListener(updateTabBadge);
+	chrome.tabs.onMoved.addListener(updateTabBadge);
+	chrome.tabs.onUpdated.addListener(updateTabBadge);
+	chrome.windows.onCreated.addListener(updateTabBadge);
+	chrome.windows.onRemoved.addListener(updateTabBadge);
 	updateTabBadge();
 })();

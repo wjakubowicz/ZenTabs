@@ -138,6 +138,9 @@
 			await closeDuplicateTabsCurrent();
 		} else if (action === "settingsBtn") {
 			chrome.runtime.openOptionsPage();
+		} else if (action === "managerBtn") {
+			chrome.tabs.create({ url: chrome.runtime.getURL("manager.html") });
+			window.close();
 		} else if (action === "exportTabs") {
 			const windowSelection = document.getElementById("exportWindow").value;
 			const format = document.getElementById("exportFormat").value;

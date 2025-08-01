@@ -91,5 +91,110 @@
     },
     "settings_source_link": {
         "message": "Zobacz kod źródłowy na GitHub"
+    },
+    "manager_title": {
+        "message": "ZenTabs - Menedżer Kart"
+    },
+    "tabs_viewer_title": {
+        "message": "Przeglądarka Kart"
+    },
+    "refresh": {
+        "message": "Odśwież"
+    },
+    "close": {
+        "message": "Zamknij"
+    },
+    "windows": {
+        "message": "Okna"
+    },
+    "tabs": {
+        "message": "Karty"
+    },
+    "pinned": {
+        "message": "Przypięte"
+    },
+    "no_windows_found": {
+        "message": "Nie znaleziono okien"
+    },
+    "no_windows_description": {
+        "message": "Nie można załadować informacji o oknach i kartach."
+    },
+    "error_loading_data": {
+        "message": "Błąd ładowania danych"
+    },
+    "error_loading_description": {
+        "message": "Nie można załadować informacji o oknach i kartach."
+    },
+    "switch_to_tab": {
+        "message": "Przełącz na kartę"
+    },
+    "close_tab": {
+        "message": "Zamknij kartę"
+    },
+    "focus_window": {
+        "message": "Fokus"
+    },
+    "sort_window": {
+        "message": "Sortuj"
+    },
+    "search_placeholder": {
+        "message": "Szukaj kart według tytułu, URL lub domeny..."
+    },
+    "no_search_results": {
+        "message": "Nie znaleziono pasujących kart"
+    },
+    "no_search_results_description": {
+        "message": "Spróbuj dostosować wyszukiwane frazy lub wyczyść wyszukiwanie, aby zobaczyć wszystkie karty."
+    },
+    "select_tabs": {
+        "message": "Wybierz karty"
+    },
+    "exit_selection": {
+        "message": "Wyjdź z wyboru"
+    },
+    "select_all": {
+        "message": "Wybierz wszystkie"
+    },
+    "select_none": {
+        "message": "Odznacz wszystkie"
+    },
+    "move_selected": {
+        "message": "Przenieś wybrane"
+    },
+    "tabs_selected": {
+        "message": "karty wybrane"
+    },
+    "move_selected_tabs": {
+        "message": "Przenieś wybrane karty"
+    },
+    "move_tabs_description": {
+        "message": "Wybierz, gdzie przenieść wybrane karty:"
+    },
+    "cancel": {
+        "message": "Anuluj"
+    },
+    "move_tabs": {
+        "message": "Przenieś karty"
+    },
+    "create_new_window": {
+        "message": "Utwórz nowe okno"
+    },
+    "window": {
+        "message": "Okno"
+    },
+    "close_selected": {
+        "message": "Zamknij wybrane"
+    },
+    "try_again": {
+        "message": "Spróbuj ponownie"
+    },
+    "reload_page": {
+        "message": "Odśwież stronę"
+    },
+    "initialization_error": {
+        "message": "Błąd inicjalizacji"
+    },
+    "initialization_error_description": {
+        "message": "Nie udało się zainicjować ZenTabs."
     }
 }
