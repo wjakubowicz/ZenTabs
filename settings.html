@@ -1,103 +1,112 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="settings_title">Settings</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title data-i18n="settings_title">Settings</title>
 
-    <link href="styles/bootstrap.min.css" rel="stylesheet">
-    <link href="styles/styles.css" rel="stylesheet">
+	<link href="styles/bootstrap.min.css" rel="stylesheet">
+	<link href="styles/styles.css" rel="stylesheet">
 
-    <script src="scripts/bootstrap.min.js"></script>
-    <script src="scripts/feather.min.js"></script>
-    <script src="scripts/script.js"></script>
-    <script src="scripts/settings.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script src="scripts/feather.min.js"></script>
+	<script src="scripts/script.js"></script>
+	<script src="scripts/settings.js"></script>
 </head>
 
 <body class="settings">
-    <div class="container py-4">
-        <div class="d-flex align-items-center mb-4">
-            <i data-feather="settings" class="settings-icon"></i>
-            <h1 class="mb-0" data-i18n="settings_title">Settings</h1>
-        </div>
+	<div class="container py-4">
+		<div class="d-flex align-items-center mb-4">
+			<i data-feather="settings" class="settings-icon"></i>
+			<h1 class="mb-0" data-i18n="settings_title">Settings</h1>
+		</div>
 
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title"><i data-feather="eye" class="settings-icon"></i><span data-i18n="settings_appearance">Appearance</span></h5>
-                        <div class="form-group form-switch mb-3">
-                            <input id="darkModeToggle" type="checkbox" class="form-check-input" role="switch">
-                            <label class="form-check-label ms-2" for="darkModeToggle" data-i18n="enable_dark_mode">
-                                <i data-feather="moon" class="me-2"></i>Dark Mode
-                            </label>
-                        </div>
-                    </div>
-                </div>
+		<div class="row justify-content-center">
+			<div class="col-12 col-lg-10 col-xl-8">
+				<div class="card mb-4">
+					<div class="card-body">
+						<h5 class="card-title d-flex align-items-center mb-3">
+							<i data-feather="eye" class="settings-icon me-2"></i>
+							<span data-i18n="settings_appearance">Appearance</span>
+						</h5>
+						<div class="form-check form-switch">
+							<input id="darkModeToggle" type="checkbox" class="form-check-input" role="switch">
+							<label class="form-check-label d-flex align-items-center" for="darkModeToggle" data-i18n="enable_dark_mode">
+								<i data-feather="moon" class="me-2"></i>Dark Mode
+							</label>
+						</div>
+					</div>
+				</div>
 
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title"><i data-feather="globe" class="settings-icon"></i><span data-i18n="settings_language">Language</span></h5>
-                        <div class="form-group">
-                            <label for="languageSelect" class="form-label" data-i18n="select_language">Select Language</label>
-                            <select id="languageSelect" class="form-select">
-                            </select>
-                        </div>
-                    </div>
-                </div>
+				<div class="card mb-4">
+					<div class="card-body">
+						<h5 class="card-title d-flex align-items-center mb-3">
+							<i data-feather="globe" class="settings-icon me-2"></i>
+							<span data-i18n="settings_language">Language</span>
+						</h5>
+						<div class="form-group">
+							<label for="languageSelect" class="form-label" data-i18n="select_language">Select Language</label>
+							<select id="languageSelect" class="form-select">
+							</select>
+						</div>
+					</div>
+				</div>
 
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <i data-feather="maximize" class="settings-icon"></i>
-                            <span data-i18n="settings_popup_size">Popup Size</span>
-                        </h5>
-                        <div class="mb-3">
-                            <label for="popupWidthRange" class="form-label" data-i18n="popup_width_label">Popup Width</label>
-                            <input type="range" class="form-range" id="popupWidthRange" min="380" max="570">
-                            <span id="popupWidthValue" class="ms-2"></span>
-                        </div>
-                    </div>
-                </div>
+				<div class="card mb-4">
+					<div class="card-body">
+						<h5 class="card-title d-flex align-items-center mb-3">
+							<i data-feather="maximize" class="settings-icon me-2"></i>
+							<span data-i18n="settings_popup_size">Popup Size</span>
+						</h5>
+						<div class="form-group">
+							<div class="d-flex justify-content-between align-items-center mb-2">
+								<label for="popupWidthRange" class="form-label mb-0" data-i18n="popup_width_label">Popup Width</label>
+								<span id="popupWidthValue" class="badge bg-secondary fs-6 px-2 py-1"></span>
+							</div>
+							<input type="range" class="form-range" id="popupWidthRange" min="380" max="570">
+						</div>
+					</div>
+				</div>
 
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <i data-feather="download" class="settings-icon"></i>
-                            <span data-i18n="export_tabs">Export Tabs</span>
-                        </h5>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="exportWindow" class="form-label" data-i18n="export_window">Export Window</label>
-                                <select id="exportWindow" class="form-select">
-                                    <option value="current" data-i18n="current_window">Current Window</option>
-                                    <option value="all" data-i18n="all_windows">All Windows</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="exportFormat" class="form-label" data-i18n="export_format">Export Format</label>
-                                <select id="exportFormat" class="form-select">
-                                    <option value="html" data-i18n="format_html">HTML</option>
-                                    <option value="csv" data-i18n="format_csv">CSV</option>
-                                    <option value="json" data-i18n="format_json">JSON</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button type="button" id="exportTabs" class="btn btn-primary" data-i18n="export">Export</button>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-body text-center">
-                        <p class="mb-0">
-                            <span data-i18n="settings_repo_info"></span>
-                            &nbsp;
-                            <a href="https://github.com/wjakubowicz/ZenTabs" target="_blank" data-i18n="settings_source_link"></a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+				<div class="card mb-4">
+					<div class="card-body">
+						<h5 class="card-title d-flex align-items-center mb-3">
+							<i data-feather="download" class="settings-icon me-2"></i>
+							<span data-i18n="export_tabs">Export Tabs</span>
+						</h5>
+						<div class="row g-3">
+							<div class="col-sm-4">
+								<label for="exportWindow" class="form-label" data-i18n="export_window">Export Window</label>
+								<select id="exportWindow" class="form-select">
+									<option value="current" data-i18n="current_window">Current Window</option>
+									<option value="all" data-i18n="all_windows">All Windows</option>
+								</select>
+							</div>
+							<div class="col-sm-4">
+								<label for="exportFormat" class="form-label" data-i18n="export_format">Export Format</label>
+								<select id="exportFormat" class="form-select">
+									<option value="html" data-i18n="format_html">HTML</option>
+									<option value="csv" data-i18n="format_csv">CSV</option>
+									<option value="json" data-i18n="format_json">JSON</option>
+								</select>
+							</div>
+							<div class="col-sm-4 d-flex align-items-end">
+								<button type="button" id="exportTabs" class="btn btn-primary w-100" data-i18n="export">Export</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card mb-4">
+					<div class="card-body text-center">
+						<p class="mb-0">
+							<span data-i18n="settings_repo_info"></span>
+							&nbsp;
+							<a href="https://github.com/wjakubowicz/ZenTabs" target="_blank" data-i18n="settings_source_link"></a>
+						</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

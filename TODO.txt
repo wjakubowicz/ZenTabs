@@ -1,0 +1,29 @@
+1. Window and tab view management
+- Displaying windows with open tabs
+- Expanding and collapsing the entire window view (bars with headings: Current Window, Window 1, ...)
+- Undo operations
+- Ability to search for tabs by link, title, etc.
+
+2. Tab operations
+- Selecting single or multiple tabs
+- Moving selected tabs to another or new window
+- Pinning tabs in a window
+- Faster removal of duplicate tabs
+
+3. Window operations
+- Merging selected windows
+- Merging all open windows
+
+4. Sorting and filtering
+- Sorting by the number of open tabs for a given website, including subdomains (pl.wikipedia.org and en.wikipedia.org treated as wikipedia.org), ascending/descending
+- Alphabetical sorting, ascending/descending
+- Sorting by domain, ascending/descending
+
+5. Closed tabs and windows
+- Add a ‘Closed tabs and windows’ section
+- In the window and tab view, add a notification bubble about closing a given tab
+
+6. Snapshots
+- Create and save snapshots of open windows
+- Quickly reopen saved snapshots
+- Automatically save snapshots
