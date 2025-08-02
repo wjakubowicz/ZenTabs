@@ -97,12 +97,14 @@
         toast.className = `toast align-items-center text-white bg-${type} border-0`;
         toast.setAttribute('role', 'alert');
         toast.innerHTML = `
-            <div class="d-flex">
-                <div class="toast-body">
+            <div class="d-flex align-items-center">
+                <div class="toast-body flex-grow-1">
                     <i data-feather="${type === 'success' ? 'check-circle' : type === 'danger' ? 'alert-circle' : 'info'}"></i>
                     ${message}
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                <button type="button" class="btn-close btn-close-white me-2" data-bs-dismiss="toast" id="closeBtn">
+                    <i data-feather="x-circle"></i>
+                </button>
             </div>
         `;
         
@@ -380,16 +382,26 @@
         updateStats();
     };
 
-    // Enhanced window loading with better error handling
+    // Add chrome runtime ready check
+    const waitForChromeReady = () => {
+        return new Promise((resolve) => {
+            if (chrome?.windows && chrome?.tabs) {
+                resolve();
+            } else {
+                setTimeout(() => waitForChromeReady().then(resolve), 100);
+            }
+        });
+    };
+
+    // Enhanced window loading with chrome ready check
     const loadWindowsAndTabs = async () => {
         if (isLoading) return;
         
         try {
             setLoadingState(true);
             
-            if (!chrome?.windows || !chrome?.tabs) {
-                throw new Error('Chrome extension APIs not available');
-            }
+            // Wait for Chrome APIs to be ready
+            await waitForChromeReady();
             
             const windows = await chromeAPI.getWindows({ populate: true, windowTypes: ["normal"] });
             
@@ -725,8 +737,6 @@
         console.log('DOM Content Loaded - Initializing ZenTabs Manager');
         
         try {
-            setLoadingState(true);
-            
             if (!chrome?.runtime) {
                 throw new Error('Not running in a Chrome extension context');
             }
@@ -768,8 +778,5 @@
                     reloadBtn.addEventListener('click', () => location.reload());
                 }
             }
-        } finally {
-            setLoadingState(false);
-        }
-    });
-})();
+	};
+})})();
