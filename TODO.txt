@@ -22,3 +22,6 @@
 - Create and save snapshots of open windows
 - Quickly reopen saved snapshots
 - Automatically save snapshots
+
+7. Fixes
+- Fix dark mode toggle

@@ -92,12 +92,6 @@
     "settings_source_link": {
         "message": "View source on GitHub"
     },
-    "manager_title": {
-        "message": "ZenTabs - Tab Manager"
-    },
-    "tabs_viewer_title": {
-        "message": "Tabs Viewer"
-    },
     "refresh": {
         "message": "Refresh"
     },

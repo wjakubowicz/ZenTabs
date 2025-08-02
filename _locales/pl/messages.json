@@ -92,12 +92,6 @@
     "settings_source_link": {
         "message": "Zobacz kod źródłowy na GitHub"
     },
-    "manager_title": {
-        "message": "ZenTabs - Menedżer Kart"
-    },
-    "tabs_viewer_title": {
-        "message": "Przeglądarka Kart"
-    },
     "refresh": {
         "message": "Odśwież"
     },

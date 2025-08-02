@@ -16,94 +16,139 @@
 
 <body class="settings">
 	<div class="container py-4">
-		<div class="d-flex align-items-center mb-4">
-			<i data-feather="settings" class="settings-icon"></i>
-			<h1 class="mb-0" data-i18n="settings_title">Settings</h1>
+		<!-- Header with back button -->
+		<div class="d-flex align-items-center justify-content-between mb-4">
+			<div class="d-flex align-items-center">
+				<div class="d-flex align-items-center">
+					<i data-feather="settings" class="settings-icon me-2"></i>
+					<h1 class="mb-0 h2" data-i18n="settings_title">Settings</h1>
+				</div>
+			</div>
 		</div>
 
 		<div class="row justify-content-center">
 			<div class="col-12 col-lg-10 col-xl-8">
-				<div class="card mb-4">
-					<div class="card-body">
-						<h5 class="card-title d-flex align-items-center mb-3">
-							<i data-feather="eye" class="settings-icon me-2"></i>
+				<!-- Appearance Settings -->
+				<div class="card mb-4 shadow-sm">
+					<div class="card-body p-4">
+						<h5 class="card-title d-flex align-items-center mb-3 pb-2 border-bottom">
+							<i data-feather="eye" class="settings-icon me-2 text-primary"></i>
 							<span data-i18n="settings_appearance">Appearance</span>
 						</h5>
-						<div class="form-check form-switch">
-							<input id="darkModeToggle" type="checkbox" class="form-check-input" role="switch">
-							<label class="form-check-label d-flex align-items-center" for="darkModeToggle" data-i18n="enable_dark_mode">
-								<i data-feather="moon" class="me-2"></i>Dark Mode
-							</label>
+						<div class="form-check form-switch d-flex align-items-center">
+							<input id="darkModeToggle" type="checkbox" class="form-check-input me-3" role="switch">
+							<div class="flex-grow-1">
+								<label class="form-check-label d-flex align-items-center mb-1 fw-medium" for="darkModeToggle" data-i18n="enable_dark_mode">
+									<i data-feather="moon" class="me-2 feather-sm"></i>Dark Mode
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="card mb-4">
-					<div class="card-body">
-						<h5 class="card-title d-flex align-items-center mb-3">
-							<i data-feather="globe" class="settings-icon me-2"></i>
+				<!-- Language Settings -->
+				<div class="card mb-4 shadow-sm">
+					<div class="card-body p-4">
+						<h5 class="card-title d-flex align-items-center mb-3 pb-2 border-bottom">
+							<i data-feather="globe" class="settings-icon me-2 text-primary"></i>
 							<span data-i18n="settings_language">Language</span>
 						</h5>
 						<div class="form-group">
-							<label for="languageSelect" class="form-label" data-i18n="select_language">Select Language</label>
-							<select id="languageSelect" class="form-select">
+							<label for="languageSelect" class="form-label fw-medium d-flex align-items-center mb-2" data-i18n="select_language">
+								<i data-feather="type" class="me-2 feather-sm text-secondary"></i>Select Language
+							</label>
+							<select id="languageSelect" class="form-select form-select-lg">
 							</select>
 						</div>
 					</div>
 				</div>
 
-				<div class="card mb-4">
-					<div class="card-body">
-						<h5 class="card-title d-flex align-items-center mb-3">
-							<i data-feather="maximize" class="settings-icon me-2"></i>
+				<!-- Popup Size Settings -->
+				<div class="card mb-4 shadow-sm">
+					<div class="card-body p-4">
+						<h5 class="card-title d-flex align-items-center mb-3 pb-2 border-bottom">
+							<i data-feather="maximize" class="settings-icon me-2 text-primary"></i>
 							<span data-i18n="settings_popup_size">Popup Size</span>
 						</h5>
 						<div class="form-group">
-							<div class="d-flex justify-content-between align-items-center mb-2">
-								<label for="popupWidthRange" class="form-label mb-0" data-i18n="popup_width_label">Popup Width</label>
-								<span id="popupWidthValue" class="badge bg-secondary fs-6 px-2 py-1"></span>
+							<div class="d-flex justify-content-between align-items-center mb-3">
+								<label for="popupWidthRange" class="form-label mb-0 fw-medium d-flex align-items-center" data-i18n="popup_width_label">
+									<i data-feather="move-horizontal" class="me-2 feather-sm text-secondary"></i>Popup Width
+								</label>
+								<span id="popupWidthValue" class="badge bg-primary fs-6 px-3 py-2"></span>
 							</div>
-							<input type="range" class="form-range" id="popupWidthRange" min="380" max="570">
+							<div class="px-2">
+								<input type="range" class="form-range" id="popupWidthRange" min="380" max="570">
+								<div class="d-flex justify-content-between mt-1">
+									<small class="text-muted">380px</small>
+									<small class="text-muted">570px</small>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="card mb-4">
-					<div class="card-body">
-						<h5 class="card-title d-flex align-items-center mb-3">
-							<i data-feather="download" class="settings-icon me-2"></i>
+				<!-- Export Settings -->
+				<div class="card mb-4 shadow-sm">
+					<div class="card-body p-4">
+						<h5 class="card-title d-flex align-items-center mb-3 pb-2 border-bottom">
+							<i data-feather="download" class="settings-icon me-2 text-primary"></i>
 							<span data-i18n="export_tabs">Export Tabs</span>
 						</h5>
 						<div class="row g-3">
-							<div class="col-sm-4">
-								<label for="exportWindow" class="form-label" data-i18n="export_window">Export Window</label>
+							<div class="col-md-4">
+								<label for="exportWindow" class="form-label fw-medium d-flex align-items-center mb-2" data-i18n="export_window">
+									<i data-feather="layers" class="me-2 feather-sm text-secondary"></i>Export Window
+								</label>
 								<select id="exportWindow" class="form-select">
 									<option value="current" data-i18n="current_window">Current Window</option>
 									<option value="all" data-i18n="all_windows">All Windows</option>
 								</select>
 							</div>
-							<div class="col-sm-4">
-								<label for="exportFormat" class="form-label" data-i18n="export_format">Export Format</label>
+							<div class="col-md-4">
+								<label for="exportFormat" class="form-label fw-medium d-flex align-items-center mb-2" data-i18n="export_format">
+									<i data-feather="file-text" class="me-2 feather-sm text-secondary"></i>Export Format
+								</label>
 								<select id="exportFormat" class="form-select">
 									<option value="html" data-i18n="format_html">HTML</option>
 									<option value="csv" data-i18n="format_csv">CSV</option>
 									<option value="json" data-i18n="format_json">JSON</option>
 								</select>
 							</div>
-							<div class="col-sm-4 d-flex align-items-end">
-								<button type="button" id="exportTabs" class="btn btn-primary w-100" data-i18n="export">Export</button>
+							<div class="col-md-4 d-flex align-items-end">
+								<button type="button" id="exportTabs" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center" data-i18n="export">
+									<i data-feather="download" class="me-2 feather-sm"></i>Export
+								</button>
+							</div>
+						</div>
+						<div class="mt-3">
+							<div id="exportStatus" class="alert alert-success d-none" role="alert">
+								<i data-feather="check-circle" class="me-2 feather-sm"></i>
+								<span data-i18n="export_success">Tabs exported successfully!</span>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="card mb-4">
-					<div class="card-body text-center">
-						<p class="mb-0">
+				<!-- About Section -->
+				<div class="card shadow-sm border-0">
+					<div class="card-body p-4 text-center">
+						<div class="mb-3">
+							<i data-feather="github" class="text-muted" style="width: 32px; height: 32px;"></i>
+						</div>
+						<h6 class="card-title mb-2" data-i18n="about_zentabs">ZenTabs</h6>
+						<p class="card-text text-muted mb-3">
 							<span data-i18n="settings_repo_info"></span>
-							&nbsp;
-							<a href="https://github.com/wjakubowicz/ZenTabs" target="_blank" data-i18n="settings_source_link"></a>
 						</p>
+						<div class="d-flex justify-content-center gap-3">
+							<a href="https://github.com/wjakubowicz/ZenTabs" target="_blank" class="btn btn-outline-primary btn-sm d-flex align-items-center" data-i18n="settings_source_link">
+								<i data-feather="external-link" class="me-2 feather-sm"></i>View Source
+							</a>
+							<a href="https://github.com/wjakubowicz/ZenTabs/issues" target="_blank" class="btn btn-outline-secondary btn-sm d-flex align-items-center" data-i18n="report_issue">
+								<i data-feather="message-circle" class="me-2 feather-sm"></i>Report Issue
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

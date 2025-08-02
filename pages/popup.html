@@ -1,53 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="../styles/bootstrap.min.css" rel="stylesheet">
-    <link href="../styles/styles.css" rel="stylesheet">
-    
-    <script src="../scripts/bootstrap.min.js"></script>
-    <script src="../scripts/feather.min.js"></script>
-    <script src="../scripts/script.js"></script>
-    <script src="../scripts/settings.js"></script>
+	<link href="../styles/bootstrap.min.css" rel="stylesheet">
+	<link href="../styles/styles.css" rel="stylesheet">
+	
+	<script src="../scripts/bootstrap.min.js"></script>
+	<script src="../scripts/feather.min.js"></script>
+	<script src="../scripts/script.js"></script>
+	<script src="../scripts/settings.js"></script>
 </head>
 
 <body class="popup">
-    <div class="container">
-        <div class="manager-button" style="position: absolute; top: 10px; right: 60px;">
-            <button id="managerBtn" type="button" class="btn btn-secondary"><i data-feather="layers"></i></button>
-        </div>
-        <div class="settings-button" style="position: absolute; top: 10px; right: 10px;">
-            <button id="settingsBtn" type="button" class="btn btn-secondary"><i data-feather="settings"></i></button>
-        </div>
-        <form>
-            <div class="form-group form-switch">
-                <input id="inclTitle" type="checkbox" class="form-check-input" role="switch" checked="checked">
-                <label class="form-check-label" for="inclTitle" data-i18n="include_titles">Include titles</label>
-            </div>
-            <div class="form-group form-switch">
-                <input id="inclAll" type="checkbox" class="form-check-input" role="switch">
-                <label class="form-check-label" for="inclAll" data-i18n="include_all_windows">Include all windows</label>
-            </div>
-            <div class="form-group">
-                <textarea id="content" class="form-control"></textarea>
-            </div>
-            <div class="btn-group">
-                <button type="button" id="btOpenTabs" class="btn btn-primary" data-i18n="open_urls">Open all URLs in new tabs</button>
-            </div>
-            <br>
-            <div class="btn-group">
-                <button id="all" type="button" class="btn btn-outline-success" data-i18n="sort_all_tabs">Sort All Tabs</button>
-                <button id="window" type="button" class="btn btn-outline-success" data-i18n="sort_current_window">Sort This Window</button>
-                <button id="domain" type="button" class="btn btn-outline-success" data-i18n="extract_domain">Extract This Domain</button>
-            </div>
-            <br>
-            <div class="btn-group">
-                <button id="closeDuplicates" type="button" class="btn btn-outline-danger" data-i18n="close_duplicates">Close Duplicates</button>
-                <button id="closeDuplicatesCurrent" type="button" class="btn btn-outline-danger" data-i18n="close_duplicates_current">Close Duplicates in Current Window</button>
-            </div>
-        </form>
-    </div>
+	<div class="container">
+		<div class="manager-button" style="position: absolute; top: 20px; right: 90px;">
+			<button id="managerBtn" type="button" class="btn btn-secondary"><i data-feather="layers"></i></button>
+		</div>
+		<div class="settings-button" style="position: absolute; top: 20px; right: 20px;">
+			<button id="settingsBtn" type="button" class="btn btn-secondary"><i data-feather="settings"></i></button>
+		</div>
+		<form>
+			<div class="form-group form-switch">
+				<input id="inclTitle" type="checkbox" class="form-check-input" role="switch" checked="checked">
+				<label class="form-check-label" for="inclTitle" data-i18n="include_titles">Include titles</label>
+			</div>
+			<div class="form-group form-switch">
+				<input id="inclAll" type="checkbox" class="form-check-input" role="switch">
+				<label class="form-check-label" for="inclAll" data-i18n="include_all_windows">Include all windows</label>
+			</div>
+			<div class="form-group">
+				<textarea id="content" class="form-control"></textarea>
+			</div>
+			<div class="btn-group">
+				<button type="button" id="btOpenTabs" class="btn btn-primary" data-i18n="open_urls">Open all URLs in new tabs</button>
+			</div>
+			<br>
+			<div class="btn-group">
+				<button id="all" type="button" class="btn btn-outline-success" data-i18n="sort_all_tabs">Sort All Tabs</button>
+				<button id="window" type="button" class="btn btn-outline-success" data-i18n="sort_current_window">Sort This Window</button>
+				<button id="domain" type="button" class="btn btn-outline-success" data-i18n="extract_domain">Extract This Domain</button>
+			</div>
+			<br>
+			<div class="btn-group">
+				<button id="closeDuplicates" type="button" class="btn btn-outline-danger" data-i18n="close_duplicates">Close Duplicates</button>
+				<button id="closeDuplicatesCurrent" type="button" class="btn btn-outline-danger" data-i18n="close_duplicates_current">Close Duplicates in Current Window</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
