@@ -139,7 +139,7 @@
 		} else if (action === "settingsBtn") {
 			chrome.runtime.openOptionsPage();
 		} else if (action === "managerBtn") {
-			chrome.tabs.create({ url: chrome.runtime.getURL("manager.html") });
+			chrome.tabs.create({ url: chrome.runtime.getURL("pages/manager.html") });
 			window.close();
 		} else if (action === "exportTabs") {
 			const windowSelection = document.getElementById("exportWindow").value;
@@ -180,7 +180,7 @@
 		await exportTabs();
 		feather.replace();
 
-		if (window.location.pathname.endsWith("popup.html")) {
+		if (window.location.pathname.endsWith("pages/popup.html")) {
 			const { popupWidth } = await chrome.storage.sync.get(["popupWidth"]);
 			if (popupWidth) document.body.style.width = `${popupWidth}px`;
 		}

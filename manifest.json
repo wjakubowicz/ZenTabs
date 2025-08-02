@@ -17,7 +17,7 @@
     "action": {
         "default_icon": "icons/48icon.png",
         "default_title": "__MSG_extension_name__",
-        "default_popup": "popup.html"
+        "default_popup": "pages/popup.html"
     },
 
     "background": {
@@ -29,7 +29,7 @@
     },
 
     "options_ui": {
-        "page": "settings.html",
+        "page": "pages/settings.html",
         "open_in_tab": true
     },
 

@@ -54,7 +54,7 @@
                 });
             });
             const { language = "en" } = result;
-            messages = await fetch(chrome.runtime.getURL(`_locales/${language}/messages.json`)).then(res => res.json());
+            const messages = await fetch(chrome.runtime.getURL(`_locales/${language}/messages.json`)).then((res) => res.json());
             
             document.querySelectorAll("[data-i18n]").forEach(el => {
                 const key = el.getAttribute("data-i18n");
