@@ -59,7 +59,7 @@
 }
 
 /* Apply dark mode based on system preference if no class is set */
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
 	:root:not(.light-mode) {
 		--bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
 		--bg-secondary: rgba(26, 26, 46, 0.95);
