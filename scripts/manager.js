@@ -451,7 +451,6 @@
 	const focusWindow = async windowId => {
 		try {
 			await chromeAPI.updateWindow(windowId, { focused: true });
-			showToast('Window focused', 'success', 1500);
 		} catch (error) {
 			console.error("Error focusing window:", error);
 			showToast('Error focusing window', 'danger');
@@ -476,7 +475,6 @@
 		state.selectedTabs.clear();
 		updateSelectionUI();
 		renderWindows();
-		showToast(state.selectionMode ? 'Selection mode enabled' : 'Selection mode disabled', 'info', 1500);
 	};
 
 	const selectAllTabsInWindow = windowId => {
@@ -771,7 +769,6 @@
 			
 			// Focus search after a short delay
 			setTimeout(() => document.getElementById('searchInput')?.focus(), 100);
-			showToast('ZenTabs Manager loaded successfully', 'success', 2000);
 			console.log('ZenTabs Manager initialization complete');
 			
 		} catch (error) {

@@ -1,183 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title data-i18n="extension_name">ZenTabs - Tab Manager</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="extension_name">ZenTabs - Tab Manager</title>
 
-	<link href="../styles/bootstrap.min.css" rel="stylesheet">
-	<link href="../styles/styles.css" rel="stylesheet">
+    <link href="../styles/bootstrap.min.css" rel="stylesheet">
+    <link href="../styles/styles.css" rel="stylesheet">
 
-	<script src="../scripts/bootstrap.min.js"></script>
-	<script src="../scripts/feather.min.js"></script>
-	<script src="../scripts/manager.js"></script>
+    <script src="../scripts/bootstrap.min.js"></script>
+    <script src="../scripts/feather.min.js"></script>
+    <script src="../scripts/manager.js"></script>
+    <script src="../scripts/script.js"></script>
+    <script src="../scripts/settings.js"></script>
 </head>
 
 <body class="manager">
-	<!-- Header -->
-	<div class="header-container">
-		<div class="container-fluid">
-			<div class="d-flex justify-content-between align-items-center">
-				<div class="d-flex align-items-center">
-					<div class="me-3">
-						<i data-feather="layers" class="text-primary" style="width: 2rem; height: 2rem;"></i>
-					</div>
-					<div>
-						<h1 class="main-title mb-0" data-i18n="extension_name">ZenTabs - Tab Manager</h1>
-						<p class="text-muted mb-0 small" data-i18n="description">Organize your browsing experience by exporting and importing URLs of tabs to text and sorting them.</p>
-					</div>
-				</div>
-				<div class="d-flex gap-2">
-					<button id="selectionModeBtn" class="btn btn-outline-primary" aria-label="Toggle selection mode">
-						<i data-feather="check-square" class="me-1"></i>
-						<span data-i18n="select_tabs">Select Tabs</span>
-					</button>
-					<button id="refreshBtn" class="btn btn-outline-primary" aria-label="Refresh data">
-						<i data-feather="refresh-cw" class="me-1"></i>
-						<span data-i18n="refresh">Refresh</span>
-					</button>
-					<button id="closeBtn" class="btn btn-outline-secondary" aria-label="Close manager">
-						<i data-feather="x" class="me-1"></i>
-						<span data-i18n="close">Close</span>
-					</button>
-				</div>
-			</div>
-			
-			<!-- Search in Header -->
-			<div class="search-container mt-3">
-				<div class="input-group">
-					<span class="input-group-text">
-						<i data-feather="search"></i>
-					</span>
-					<input 
-						type="text" 
-						id="searchInput" 
-						class="form-control" 
-						data-i18n-placeholder="search_placeholder" 
-						placeholder="Search tabs by title, URL, or domain..."
-						aria-label="Search tabs"
-					>
-					<button id="clearSearchBtn" type="button" aria-label="Clear search" style="display: none;">
-						<i data-feather="x"></i>
-					</button>
-				</div>
-				<div class="search-shortcuts mt-2 text-center">
-					<small class="text-muted">
-						<kbd>Ctrl</kbd> + <kbd>F</kbd> to focus search • <kbd>Esc</kbd> to clear
-					</small>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- Header -->
+    <div class="header-container">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <i data-feather="layers" class="text-primary" style="width: 2rem; height: 2rem;"></i>
+                    </div>
+                    <div>
+                        <h1 class="main-title mb-0" data-i18n="extension_name">ZenTabs - Tab Manager</h1>
+                        <p class="text-muted mb-0 small" data-i18n="description">Organize your browsing experience by exporting and importing URLs of tabs to text and sorting them.</p>
+                    </div>
+                </div>
+                
+                <!-- Search in Header -->
+                <div class="search-container flex-grow-1 mx-4" style="max-width: 400px;">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i data-feather="search"></i>
+                        </span>
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            class="form-control" 
+                            data-i18n-placeholder="search_placeholder" 
+                            placeholder="Search tabs by title, URL, or domain..."
+                            aria-label="Search tabs"
+                        >
+                        <button id="clearSearchBtn" type="button" aria-label="Clear search" style="display: none;">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-2">
+                    <button id="selectionModeBtn" class="btn btn-outline-primary" aria-label="Toggle selection mode">
+                        <i data-feather="check-square" class="me-1"></i>
+                        <span data-i18n="select_tabs">Select Tabs</span>
+                    </button>
+                    <button id="refreshBtn" class="btn btn-outline-primary" aria-label="Refresh data">
+                        <i data-feather="refresh-cw" class="me-1"></i>
+                        <span data-i18n="refresh">Refresh</span>
+                    </button>
+                    <button id="closeBtn" class="btn btn-outline-secondary" aria-label="Close manager">
+                        <i data-feather="x" class="me-1"></i>
+                        <span data-i18n="close">Close</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Search shortcuts info moved below header -->
+            <div class="search-shortcuts mt-2 text-center">
+                <small class="text-muted">
+                    <kbd>Ctrl</kbd> + <kbd>F</kbd> to focus search • <kbd>Esc</kbd> to clear
+                </small>
+            </div>
+            
+            <!-- Selection Controls in Header -->
+            <div id="selectionControls" class="selection-controls mt-3" style="display: none;" role="toolbar" aria-label="Bulk actions">
+                <div class="d-flex gap-2 align-items-center flex-wrap">
+                    <div class="d-flex gap-2">
+                        <button id="selectAllBtn" class="btn btn-outline-secondary btn-sm" aria-label="Select all visible tabs">
+                            <i data-feather="check-square" class="me-1"></i>
+                            <span>Select All</span>
+                        </button>
+                        <button id="selectNoneBtn" class="btn btn-outline-secondary btn-sm" aria-label="Deselect all tabs">
+                            <i data-feather="square" class="me-1"></i>
+                            <span>Select None</span>
+                        </button>
+                    </div>
+                    <div class="vr d-none d-md-block"></div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <button id="moveSelectedBtn" class="btn btn-primary btn-sm" disabled aria-label="Move selected tabs">
+                            <i data-feather="move" class="me-1"></i>
+                            <span>Move Selected</span>
+                        </button>
+                        <button id="closeSelectedBtn" class="btn btn-outline-danger btn-sm" disabled aria-label="Close selected tabs">
+                            <i data-feather="trash-2" class="me-1"></i>
+                            <span>Close Selected</span>
+                        </button>
+                    </div>
+                    <div class="ms-auto">
+                        <span class="badge bg-primary fs-6">
+                            <span id="selectedCount">0</span> selected
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<!-- Stats -->
-		<div class="container-fluid">
-			<div class="stats-row">
-				<div class="stats-card">
-					<div class="stats-value" id="windowCount">0</div>
-					<div class="stats-label" data-i18n="windows">Windows</div>
-				</div>
-				<div class="stats-card">
-					<div class="stats-value" id="tabCount">0</div>
-					<div class="stats-label" data-i18n="tabs">Tabs</div>
-				</div>
-				<div class="stats-card">
-					<div class="stats-value" id="pinnedCount">0</div>
-					<div class="stats-label" data-i18n="pinned">Pinned</div>
-				</div>
-			</div>
-		</div>
+    <!-- Stats -->
+    <div class="container-fluid">
+        <div class="stats-row">
+            <div class="stats-card">
+                <div class="stats-value" id="windowCount">0</div>
+                <div class="stats-label" data-i18n="windows">Windows</div>
+            </div>
+            <div class="stats-card">
+                <div class="stats-value" id="tabCount">0</div>
+                <div class="stats-label" data-i18n="tabs">Tabs</div>
+            </div>
+            <div class="stats-card">
+                <div class="stats-value" id="pinnedCount">0</div>
+                <div class="stats-label" data-i18n="pinned">Pinned</div>
+            </div>
+        </div>
+    </div>
 
-		<!-- Selection Controls -->
-		<div id="selectionControls" class="selection-controls" style="display: none;" role="toolbar" aria-label="Bulk actions">
-			<div class="d-flex gap-2 align-items-center flex-wrap">
-				<div class="d-flex gap-2">
-					<button id="selectAllBtn" class="btn btn-outline-secondary btn-sm" aria-label="Select all visible tabs">
-						<i data-feather="check-square" class="me-1"></i>
-						<span>Select All</span>
-					</button>
-					<button id="selectNoneBtn" class="btn btn-outline-secondary btn-sm" aria-label="Deselect all tabs">
-						<i data-feather="square" class="me-1"></i>
-						<span>Select None</span>
-					</button>
-				</div>
-				<div class="vr d-none d-md-block"></div>
-				<div class="d-flex gap-2 align-items-center">
-					<button id="moveSelectedBtn" class="btn btn-primary btn-sm" disabled aria-label="Move selected tabs">
-						<i data-feather="move" class="me-1"></i>
-						<span>Move Selected</span>
-					</button>
-					<button id="closeSelectedBtn" class="btn btn-outline-danger btn-sm" disabled aria-label="Close selected tabs">
-						<i data-feather="trash-2" class="me-1"></i>
-						<span>Close Selected</span>
-					</button>
-				</div>
-				<div class="ms-auto">
-					<span class="badge bg-primary fs-6">
-						<span id="selectedCount">0</span> selected
-					</span>
-				</div>
-			</div>
-		</div>
+    <!-- Windows Container -->
+    <div id="windowsContainer" class="windows-container" role="main" aria-label="Windows and tabs">
+        <!-- Loading state (hidden by default, shown only when explicitly loading) -->
+        <div class="text-center py-5" id="loadingState" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 text-muted">Loading your tabs...</p>
+        </div>
+    </div>
 
+    <!-- Move Tabs Modal -->
+    <div id="moveTabsModal" class="modal-overlay" style="display: none;" role="dialog" aria-labelledby="moveModalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="moveModalTitle">Move Selected Tabs</h5>
+                <button type="button" id="closeMoveModalBtn" class="btn-close" aria-label="Close modal">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-3">Choose where to move the <strong><span id="moveTabsCount">0</span></strong> selected tabs:</p>
+                <div id="windowsList" class="windows-list" role="radiogroup" aria-label="Target window selection">
+                    <!-- Window options will be populated here -->
+                </div>
+                <div class="mt-3">
+                    <small class="text-muted">
+                        <i data-feather="info" class="me-1" style="width: 14px; height: 14px;"></i>
+                        Moving tabs to a new window will create a separate browser window
+                    </small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelMoveBtn" class="btn btn-outline-secondary">
+                    <i data-feather="x" class="me-1"></i>
+                    Cancel
+                </button>
+                <button id="confirmMoveBtn" class="btn btn-primary">
+                    <i data-feather="move" class="me-1"></i>
+                    Move Tabs
+                </button>
+            </div>
+        </div>
+    </div>
 
+    <!-- Toast container for notifications -->
+    <div id="toastContainer" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100;">
+        <!-- Toasts will be inserted here -->
+    </div>
 
-		<!-- Windows Container -->
-		<div id="windowsContainer" class="windows-container" role="main" aria-label="Windows and tabs">
-			<!-- Loading state (hidden by default, shown only when explicitly loading) -->
-			<div class="text-center py-5" id="loadingState" style="display: none;">
-				<div class="spinner-border text-primary" role="status">
-					<span class="visually-hidden">Loading...</span>
-				</div>
-				<p class="mt-3 text-muted">Loading your tabs...</p>
-			</div>
-		</div>
-	</div>
-
-	<!-- Move Tabs Modal -->
-	<div id="moveTabsModal" class="modal-overlay" style="display: none;" role="dialog" aria-labelledby="moveModalTitle" aria-hidden="true">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="moveModalTitle">Move Selected Tabs</h5>
-				<button type="button" id="closeMoveModalBtn" class="btn-close" aria-label="Close modal">
-					<i data-feather="x"></i>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p class="mb-3">Choose where to move the <strong><span id="moveTabsCount">0</span></strong> selected tabs:</p>
-				<div id="windowsList" class="windows-list" role="radiogroup" aria-label="Target window selection">
-					<!-- Window options will be populated here -->
-				</div>
-				<div class="mt-3">
-					<small class="text-muted">
-						<i data-feather="info" class="me-1" style="width: 14px; height: 14px;"></i>
-						Moving tabs to a new window will create a separate browser window
-					</small>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button id="cancelMoveBtn" class="btn btn-outline-secondary">
-					<i data-feather="x" class="me-1"></i>
-					Cancel
-				</button>
-				<button id="confirmMoveBtn" class="btn btn-primary">
-					<i data-feather="move" class="me-1"></i>
-					Move Tabs
-				</button>
-			</div>
-		</div>
-	</div>
-
-	<!-- Toast container for notifications -->
-	<div id="toastContainer" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100;">
-		<!-- Toasts will be inserted here -->
-	</div>
-
-	<!-- Keyboard shortcuts help -->
-	<div class="position-fixed bottom-0 end-0 p-3">
-		<button class="btn btn-outline-secondary btn-sm" id="keyboardHelpBtn" title="Keyboard shortcuts">
-			<i data-feather="help-circle"></i>
-		</button>
-	</div>
+    <!-- Keyboard shortcuts help -->
+    <div class="position-fixed bottom-0 end-0 p-3">
+        <button class="btn btn-outline-secondary btn-sm" id="keyboardHelpBtn" title="Keyboard shortcuts">
+            <i data-feather="help-circle"></i>
+        </button>
+    </div>
 </body>
 </html>

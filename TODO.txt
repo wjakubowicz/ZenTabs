@@ -1,5 +1,6 @@
 1. Window and tab view management
 - Expanding and collapsing the entire window view (bars with headings: Current Window, Window 1, ...)
+- Select multiple tabs by clicking on the first one and while holding Shift key on the last one to select the range
 - Undo operations
 
 2. Tab operations
@@ -10,12 +11,12 @@
 - Merging all open windows
 
 4. Sorting and filtering
-- Sorting by the number of open tabs for a given website, including subdomains (pl.wikipedia.org and en.wikipedia.org treated as wikipedia.org), ascending/descending
 - Alphabetical sorting, ascending/descending
 - Sorting by domain, ascending/descending
+- Sorting by the number of open tabs for a given website, including subdomains (pl.wikipedia.org and en.wikipedia.org treated as wikipedia.org), ascending/descending
 
 5. Closed tabs and windows
-- Add a ‘Closed tabs and windows’ section
+- Add a 'Closed tabs and windows' section
 - In the window and tab view, add a notification bubble about closing a given tab
 
 6. Snapshots
@@ -24,4 +25,4 @@
 - Automatically save snapshots
 
 7. Fixes
-- Fix dark mode toggle
+- Fix dark mode toggle position

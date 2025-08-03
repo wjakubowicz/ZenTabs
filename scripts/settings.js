@@ -4,7 +4,11 @@
 		pl: "Polski"
 	};
 	
-	const applyDarkMode = enable => document.body.classList.toggle("dark-mode", !!enable);
+	const applyDarkMode = enable => {
+		// Apply to both html and body for comprehensive coverage
+		document.documentElement.classList.toggle("dark-mode", !!enable);
+		document.body.classList.toggle("dark-mode", !!enable);
+	};
 
 	const initialize = () => {
 		const darkModeToggle = document.getElementById("darkModeToggle");
@@ -55,10 +59,15 @@
 		chrome.storage.onChanged.addListener((changes, area) => {
 			if (area === "sync" && changes.darkMode) {
 				applyDarkMode(changes.darkMode.newValue);
+				// Update toggle state if it exists
+				if (darkModeToggle) {
+					darkModeToggle.checked = !!changes.darkMode.newValue;
+				}
 			}
 		});
 	};
 
+	// Apply initial dark mode state immediately
 	chrome.storage.sync.get(["darkMode"], r => {
 		if (r.darkMode) applyDarkMode(true);
 	});

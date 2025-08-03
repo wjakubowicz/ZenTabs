@@ -3,7 +3,7 @@
         "message": "ZenTabs - Menedżer Kart"
     },
     "description": {
-        "message": "Zorganizuj swoje doświadczenie przeglądania, eksportując i importując adresy URL kart do tekstu oraz sortując je."
+        "message": "Zorganizuj swoje doświadczenie przeglądania."
     },
     "include_titles": {
         "message": "Wyświetl tytuły"
@@ -87,7 +87,7 @@
         "message": "Eksportuj"
     },
     "settings_repo_info": {
-        "message": "© 2024-2025 Wojciech Jakubowicz."
+        "message": "© 2024-2025 Wojciech Jakubowicz"
     },
     "settings_source_link": {
         "message": "Zobacz kod źródłowy na GitHub"
