@@ -270,6 +270,14 @@ textarea {
 .form-switch .form-check-input:checked::before { content: none; }
 .form-switch .form-check-input:checked::after { transform: translateX(22px); }
 
+/* Fix: prevent switch from being shifted/cut off by Bootstrap defaults */
+.form-switch {
+	padding-left: 0 !important;
+}
+.form-switch .form-check-input {
+	margin-left: 0 !important;
+}
+
 /* ==========================================================================
    5. BUTTONS
    ========================================================================== */

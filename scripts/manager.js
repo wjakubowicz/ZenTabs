@@ -361,7 +361,9 @@
 			
 			const windows = await chromeAPI.getWindows();
 			
-			state.allWindows = windows || [];
+			const ordered = prioritizeFocusedWindow(windows || []);
+			
+			state.allWindows = ordered;
 			state.totalTabs = state.allWindows.reduce((sum, win) => sum + win.tabs.length, 0);
 			state.totalPinned = state.allWindows.reduce((sum, win) => 
 				sum + win.tabs.filter(tab => tab.pinned).length, 0);
@@ -748,6 +750,17 @@
 			.tab-favicon.default { background-color: #e9ecef; color: #495057; }
 		`;
 		document.head.appendChild(style);
+	};
+
+	// Ensure focused (current) window is first
+	const prioritizeFocusedWindow = (windows) => {
+		if (!Array.isArray(windows)) return [];
+		const focusedIndex = windows.findIndex(w => w.focused);
+		if (focusedIndex > 0) {
+			const [focused] = windows.splice(focusedIndex, 1);
+			windows.unshift(focused);
+		}
+		return windows;
 	};
 
 	// Main initialization
