@@ -243,6 +243,7 @@
 	const createWindowElement = (windowData) => {
 		const windowDiv = document.createElement("div");
 		const pinnedTabs = windowData.tabs.filter(tab => tab.pinned).length;
+		const incognito = windowData.incognito;
 
 		windowDiv.className = "window-card";
 		windowDiv.setAttribute("data-window-id", windowData.id);
@@ -253,11 +254,16 @@
 			<div class="window-header">
 				<div class="window-info">
 					<div class="window-select" style="display:${state.selectionMode ? 'flex':'none'};margin-right:.5rem;">
-						<input type="checkbox" class="window-checkbox" aria-label="Select window" ${state.selectedWindows.has(windowData.id)?'checked':''}>
+						<input type="checkbox" class="window-checkbox" aria-label="Select window"
+							${state.selectedWindows.has(windowData.id)?'checked':''}
+							${incognito ? 'disabled title="Incognito windows cannot be merged"' : ''}>
 					</div>
 					<i data-feather="monitor"></i>
 					<div>
-						<div class="window-title">${getMessage('window')} ${windowData.id} ${windowData.focused ? `(${getMessage('current_window')})` : ""}</div>
+						<div class="window-title">
+							${getMessage('window')} ${windowData.id} ${windowData.focused ? `(${getMessage('current_window')})` : ""}
+							${incognito ? '<span class="badge bg-dark ms-1" title="Incognito">Incognito</span>' : ''}
+						</div>
 						<div class="window-stats">${windowData.tabs.length} ${getMessage('tabs').toLowerCase()} • ${pinnedTabs} ${getMessage('pinned').toLowerCase()}</div>
 					</div>
 				</div>
@@ -310,6 +316,11 @@
 
 	// Window selection helper
 	const handleWindowSelection = (windowId, checked) => {
+		const win = state.allWindows.find(w => w.id === windowId);
+		if (win?.incognito) {
+			showToast('Incognito windows cannot be merged', 'info', 2500);
+			return;
+		}
 		if (checked) {
 			state.selectedWindows.add(windowId);
 			// add all tabs of that window to selectedTabs for consistency
@@ -396,6 +407,13 @@
 			const ordered = prioritizeFocusedWindow(windows || []);
 			
 			state.allWindows = ordered;
+			// Purge any incognito window ids that may have been retained before rule change
+			state.selectedWindows = new Set(
+				[...state.selectedWindows].filter(id => {
+					const w = state.allWindows.find(w => w.id === id);
+					return w && !w.incognito;
+				})
+			);
 			state.totalTabs = state.allWindows.reduce((sum, win) => sum + win.tabs.length, 0);
 			state.totalPinned = state.allWindows.reduce((sum, win) => 
 				sum + win.tabs.filter(tab => tab.pinned).length, 0);
@@ -517,7 +535,8 @@
 		const windowData = windowsToCheck.find(w => w.id === windowId);
 		if (windowData) {
 			windowData.tabs.forEach(tab => state.selectedTabs.add(tab.id));
-			state.selectedWindows.add(windowId);
+			// Only mark window as selected if mergeable (non-incognito)
+			if (!windowData.incognito) state.selectedWindows.add(windowId);
 			updateSelectionUI();
 			renderWindows();
 		}
@@ -538,8 +557,9 @@
 		const windowsToCheck = state.currentSearchTerm ? state.filteredWindows : state.allWindows;
 		windowsToCheck.forEach(window => 
 			window.tabs.forEach(tab => state.selectedTabs.add(tab.id)));
+		// Only add mergeable windows
 		(state.currentSearchTerm ? state.filteredWindows : state.allWindows)
-			.forEach(w => state.selectedWindows.add(w.id));
+			.forEach(w => { if (!w.incognito) state.selectedWindows.add(w.id); });
 		updateSelectionUI();
 		renderWindows();
 	};
@@ -592,37 +612,58 @@
 		const windowsList = document.getElementById('windowsList');
 		document.getElementById('moveTabsCount').textContent = visibleSelectedTabs.length;
 		
-		// Build options HTML
+		// Build options HTML (label wraps entire option so whole card is clickable)
 		const optionsHTML = [
-			`<div class="window-option">
-				<input type="radio" name="targetWindow" value="new" id="newWindow">
-				<label for="newWindow">
-					<i data-feather="plus-square"></i>
-					<div>
-						<strong>${getMessage('create_new_window')}</strong>
-						<small class="d-block text-muted">Create a new browser window</small>
-					</div>
-				</label>
-			</div>`,
+			`<label class="window-option">
+				<input type="radio" name="targetWindow" value="new">
+				<i data-feather="plus-square"></i>
+				<div>
+					<strong>${getMessage('create_new_window')}</strong>
+					<small class="d-block text-muted">Create a new browser window</small>
+				</div>
+			</label>`,
 			...state.allWindows.map(window => {
 				const isCurrentWindow = window.focused ? ' (Current)' : '';
 				return `
-					<div class="window-option">
-						<input type="radio" name="targetWindow" value="${window.id}" id="window${window.id}">
-						<label for="window${window.id}">
-							<i data-feather="monitor"></i>
-							<div>
-								<strong>${getMessage('window')} ${window.id}${isCurrentWindow}</strong>
-								<small class="d-block text-muted">${window.tabs.length} tabs • ${window.tabs.filter(t => t.pinned).length} pinned</small>
-							</div>
-						</label>
-					</div>
+					<label class="window-option">
+						<input type="radio" name="targetWindow" value="${window.id}">
+						<i data-feather="monitor"></i>
+						<div>
+							<strong>${getMessage('window')} ${window.id}${isCurrentWindow}</strong>
+							<small class="d-block text-muted">${window.tabs.length} tabs • ${window.tabs.filter(t => t.pinned).length} pinned</small>
+						</div>
+					</label>
 				`;
 			})
 		].join('');
 		
 		windowsList.innerHTML = optionsHTML;
 		feather.replace();
+
+		// Selection styling + keyboard support
+		const updateOptionSelection = () => {
+			windowsList.querySelectorAll('.window-option').forEach(opt => {
+				const input = opt.querySelector('input[type="radio"]');
+				opt.classList.toggle('selected', input.checked);
+			});
+		};
+		windowsList.addEventListener('change', e => {
+			if (e.target.name === 'targetWindow') updateOptionSelection();
+		});
+		windowsList.querySelectorAll('.window-option').forEach(opt => {
+			opt.setAttribute('tabindex', '0');
+			opt.addEventListener('keydown', e => {
+				if (['Enter', ' '].includes(e.key)) {
+					e.preventDefault();
+					const input = opt.querySelector('input[type="radio"]');
+					input.checked = true;
+					input.dispatchEvent(new Event('change', { bubbles: true }));
+					input.focus();
+				}
+			});
+		});
+		updateOptionSelection();
+
 		modal.style.display = 'block';
 		modal.setAttribute('aria-hidden', 'false');
 		windowsList.querySelector('input[type="radio"]')?.focus();
@@ -686,20 +727,29 @@
 
 	// Merge selected windows
 	const mergeSelectedWindows = async () => {
-		const windowIds = [...state.selectedWindows];
-		if (windowIds.length < 2) return;
-		if (!confirm(`Merge ${windowIds.length} windows into one?`)) return;
+		// Filter out any incognito windows defensively
+		const candidateIds = [...state.selectedWindows].filter(id => {
+			const w = state.allWindows.find(w => w.id === id);
+			return isMergeableWindow(w);
+		});
+
+		if (candidateIds.length < 2) {
+			showToast('Select at least two non-incognito windows to merge', 'info', 2500);
+			return;
+		}
+
+		if (!confirm(`Merge ${candidateIds.length} windows into one?`)) return;
+
 		try {
 			setLoadingState(true);
-			// Pick target: focused among selected else first
-			const focusedWin = state.allWindows.find(w => w.focused && state.selectedWindows.has(w.id));
-			const targetWindowId = focusedWin ? focusedWin.id : windowIds[0];
+			// Pick focused mergeable window if present, else first
+			const focusedWin = state.allWindows.find(w => w.focused && candidateIds.includes(w.id));
+			const targetWindowId = focusedWin ? focusedWin.id : candidateIds[0];
 
-			for (const wid of windowIds) {
+			for (const wid of candidateIds) {
 				if (wid === targetWindowId) continue;
 				const win = state.allWindows.find(w => w.id === wid);
 				if (!win) continue;
-				// Move all tabs (skip if no tabs)
 				for (const tab of win.tabs) {
 					try {
 						await chromeAPI.moveTab(tab.id, { windowId: targetWindowId, index: -1 });
@@ -708,7 +758,6 @@
 						console.warn('Move tab failed', tab.id, err);
 					}
 				}
-				// Close now-empty window
 				try {
 					await chrome.windows.remove(wid);
 				} catch (err) {
@@ -836,6 +885,19 @@
 			.tab-favicon.default { background-color: #e9ecef; color: #495057; }
 			.window-card.window-selected { outline: 2px solid #0d6efd; border-radius:4px; }
 			.window-header .window-select input { width:16px; height:16px; cursor:pointer; }
+
+			/* Move modal option cards */
+			.window-option {
+				display:flex; gap:.75rem; align-items:center;
+				padding:.6rem .75rem; border:1px solid #dee2e6;
+				border-radius:.5rem; cursor:pointer; background:#fff;
+				transition:background .15s, border-color .15s;
+				margin-bottom:.5rem;
+			}
+			.window-option:last-child { margin-bottom:0; }
+			.window-option:hover { background:#f8f9fa; }
+			.window-option.selected { border-color:#0d6efd; background:#e7f1ff; }
+			.window-option input[type="radio"] { margin-right:.5rem; cursor:pointer; }
 		`;
 		document.head.appendChild(style);
 	};
@@ -850,6 +912,9 @@
 		}
 		return windows;
 	};
+
+	// Helper to determine if a window can participate in merge (incognito excluded)
+	const isMergeableWindow = (win) => win && !win.incognito;
 
 	// Main initialization
 	document.addEventListener("DOMContentLoaded", async () => {

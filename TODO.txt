@@ -7,7 +7,6 @@
 2. Tab and window operations
 - Faster removal of duplicate tabs
 - Faster tab sorting
-- Merging all open windows
 
 4. Sorting and filtering
 - Alphabetical sorting, ascending/descending
@@ -24,4 +23,3 @@
 - Automatically save snapshots
 
 7. Fixes
-- Fix move modal so you don't have to click on the radio button, but the whole window card as in the window manager
