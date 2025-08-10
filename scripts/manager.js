@@ -9,7 +9,8 @@
 		currentSearchTerm: '',
 		selectedTabs: new Set(),
 		selectionMode: false,
-		isLoading: false
+		isLoading: false,
+		selectedWindows: new Set()
 	};
 
 	// Reuse utility functions from script.js
@@ -132,6 +133,8 @@
 	const cleanupSelectedTabs = () => {
 		const visibleTabIds = getVisibleTabIds();
 		state.selectedTabs = new Set([...state.selectedTabs].filter(tabId => visibleTabIds.has(tabId)));
+		const allWindowIds = new Set((state.currentSearchTerm ? state.filteredWindows : state.allWindows).map(w => w.id));
+		state.selectedWindows = new Set([...state.selectedWindows].filter(id => allWindowIds.has(id)));
 	};
 
 	// Enhanced tab element creation with better accessibility
@@ -249,6 +252,9 @@
 		windowDiv.innerHTML = `
 			<div class="window-header">
 				<div class="window-info">
+					<div class="window-select" style="display:${state.selectionMode ? 'flex':'none'};margin-right:.5rem;">
+						<input type="checkbox" class="window-checkbox" aria-label="Select window" ${state.selectedWindows.has(windowData.id)?'checked':''}>
+					</div>
 					<i data-feather="monitor"></i>
 					<div>
 						<div class="window-title">${getMessage('window')} ${windowData.id} ${windowData.focused ? `(${getMessage('current_window')})` : ""}</div>
@@ -281,6 +287,17 @@
 
 		// Setup window event listeners
 		setupWindowEvents(windowDiv, windowData.id);
+
+		// Window checkbox handler
+		const winCheckbox = windowDiv.querySelector('.window-checkbox');
+		winCheckbox?.addEventListener('change', (e) => {
+			handleWindowSelection(windowData.id, e.target.checked);
+		});
+
+		if (state.selectedWindows.has(windowData.id)) {
+			windowDiv.classList.add('window-selected');
+		}
+
 		return windowDiv;
 	};
 
@@ -289,6 +306,21 @@
 		windowDiv.querySelector(".sort-window").addEventListener("click", () => sortWindow(windowId));
 		windowDiv.querySelector(".select-all-window").addEventListener("click", () => selectAllTabsInWindow(windowId));
 		windowDiv.querySelector(".select-none-window").addEventListener("click", () => selectNoTabsInWindow(windowId));
+	};
+
+	// Window selection helper
+	const handleWindowSelection = (windowId, checked) => {
+		if (checked) {
+			state.selectedWindows.add(windowId);
+			// add all tabs of that window to selectedTabs for consistency
+			const fullWindow = state.allWindows.find(w => w.id === windowId);
+			fullWindow?.tabs.forEach(t => state.selectedTabs.add(t.id));
+		} else {
+			state.selectedWindows.delete(windowId);
+			// leave tab selections as-is (do not auto-deselect to allow granular control)
+		}
+		updateSelectionUI();
+		renderWindows();
 	};
 
 	// Search and filter functionality
@@ -475,6 +507,7 @@
 	const toggleSelectionMode = () => {
 		state.selectionMode = !state.selectionMode;
 		state.selectedTabs.clear();
+		state.selectedWindows.clear();
 		updateSelectionUI();
 		renderWindows();
 	};
@@ -484,6 +517,7 @@
 		const windowData = windowsToCheck.find(w => w.id === windowId);
 		if (windowData) {
 			windowData.tabs.forEach(tab => state.selectedTabs.add(tab.id));
+			state.selectedWindows.add(windowId);
 			updateSelectionUI();
 			renderWindows();
 		}
@@ -494,6 +528,7 @@
 		const windowData = windowsToCheck.find(w => w.id === windowId);
 		if (windowData) {
 			windowData.tabs.forEach(tab => state.selectedTabs.delete(tab.id));
+			state.selectedWindows.delete(windowId);
 			updateSelectionUI();
 			renderWindows();
 		}
@@ -503,12 +538,15 @@
 		const windowsToCheck = state.currentSearchTerm ? state.filteredWindows : state.allWindows;
 		windowsToCheck.forEach(window => 
 			window.tabs.forEach(tab => state.selectedTabs.add(tab.id)));
+		(state.currentSearchTerm ? state.filteredWindows : state.allWindows)
+			.forEach(w => state.selectedWindows.add(w.id));
 		updateSelectionUI();
 		renderWindows();
 	};
 
 	const selectNoTabs = () => {
 		state.selectedTabs.clear();
+		state.selectedWindows.clear();
 		updateSelectionUI();
 		renderWindows();
 	};
@@ -536,7 +574,10 @@
 			const button = document.getElementById(id);
 			if (button) button.disabled = visibleSelectedCount === 0;
 		});
-		
+
+		const mergeBtn = document.getElementById('mergeWindowsBtn');
+		if (mergeBtn) mergeBtn.disabled = state.selectedWindows.size < 2;
+
 		feather.replace();
 	};
 
@@ -643,6 +684,50 @@
 		modal.setAttribute('aria-hidden', 'true');
 	};
 
+	// Merge selected windows
+	const mergeSelectedWindows = async () => {
+		const windowIds = [...state.selectedWindows];
+		if (windowIds.length < 2) return;
+		if (!confirm(`Merge ${windowIds.length} windows into one?`)) return;
+		try {
+			setLoadingState(true);
+			// Pick target: focused among selected else first
+			const focusedWin = state.allWindows.find(w => w.focused && state.selectedWindows.has(w.id));
+			const targetWindowId = focusedWin ? focusedWin.id : windowIds[0];
+
+			for (const wid of windowIds) {
+				if (wid === targetWindowId) continue;
+				const win = state.allWindows.find(w => w.id === wid);
+				if (!win) continue;
+				// Move all tabs (skip if no tabs)
+				for (const tab of win.tabs) {
+					try {
+						await chromeAPI.moveTab(tab.id, { windowId: targetWindowId, index: -1 });
+						await new Promise(r => setTimeout(r, 20));
+					} catch (err) {
+						console.warn('Move tab failed', tab.id, err);
+					}
+				}
+				// Close now-empty window
+				try {
+					await chrome.windows.remove(wid);
+				} catch (err) {
+					console.warn('Close window failed', wid, err);
+				}
+			}
+			state.selectedWindows.clear();
+			state.selectedTabs.clear();
+			await loadWindowsAndTabs();
+			updateSelectionUI();
+			showToast('Windows merged', 'success');
+		} catch (error) {
+			console.error('Error merging windows:', error);
+			showToast('Error merging windows', 'danger');
+		} finally {
+			setLoadingState(false);
+		}
+	};
+
 	// Keyboard shortcuts with modern event handling
 	const initKeyboardShortcuts = () => {
 		const shortcuts = {
@@ -694,7 +779,8 @@
 			closeSelectedBtn: closeSelectedTabs,
 			confirmMoveBtn: confirmMoveTabsAction,
 			cancelMoveBtn: closeMoveTabsModal,
-			closeMoveModalBtn: closeMoveTabsModal
+			closeMoveModalBtn: closeMoveTabsModal,
+			mergeWindowsBtn: mergeSelectedWindows
 		};
 
 		Object.entries(buttonHandlers).forEach(([id, handler]) => {
@@ -748,6 +834,8 @@
 			}
 			.tab-favicon img { width: 16px; height: 16px; object-fit: contain; display: block; }
 			.tab-favicon.default { background-color: #e9ecef; color: #495057; }
+			.window-card.window-selected { outline: 2px solid #0d6efd; border-radius:4px; }
+			.window-header .window-select input { width:16px; height:16px; cursor:pointer; }
 		`;
 		document.head.appendChild(style);
 	};
