@@ -3,7 +3,7 @@
   <h1 style="margin-left: 30px;">ZenTabs - Tab Manager</h1>
 </div>
 
-ZenTabs is a Manifest V3 compatible Chrome extension designed to organize your browsing experience. It allows you to export and import tab URLs, sort and manage them across multiple windows, and close duplicate tabs.
+ZenTabs is a Manifest V3 compatible browser extension designed to organize your browsing experience. It allows you to export and import tab URLs, sort and manage them across multiple windows, and close duplicate tabs.
 
 ## Features
 
@@ -21,6 +21,8 @@ ZenTabs is a Manifest V3 compatible Chrome extension designed to organize your b
 
 ## Installation
 
+### Chrome/Edge/Chromium Browsers
+
 1. Clone the repository:
     ```sh
     git clone https://github.com/wjakubowicz/zentabs.git
@@ -28,6 +30,32 @@ ZenTabs is a Manifest V3 compatible Chrome extension designed to organize your b
 2. Open Chrome and navigate to [`chrome://extensions/`](chrome://extensions/).
 3. Enable "Developer mode" by toggling the switch in the top right corner.
 4. Click on "Load unpacked" and select the cloned repository folder.
+
+### Firefox
+
+#### Temporary Installation (for testing):
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/wjakubowicz/zentabs.git
+    ```
+2. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`
+3. Click **"Load Temporary Add-on..."**
+4. Navigate to the repository folder and select the `manifest.json` file
+5. Note: The extension will be removed when Firefox restarts
+
+#### Permanent Installation (unsigned, Developer Mode):
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/wjakubowicz/zentabs.git
+    ```
+2. Package the extension:
+    ```sh
+    cd zentabs
+    zip -r zentabs.xpi *
+    ```
+3. In Firefox, go to `about:config` and set `xpinstall.signatures.required` to `false`
+4. Navigate to `about:addons`, click the gear icon, and select "Install Add-on From File..."
+5. Select the `zentabs.xpi` file
 
 ## Usage
 
