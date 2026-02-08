@@ -4,22 +4,14 @@
 - Undo operations
 - After tab operation refresh the view
 
-2. Tab and window operations
-- Faster removal of duplicate tabs
-- Faster tab sorting
-
-4. Sorting and filtering
-- Alphabetical sorting, ascending/descending
-- Sorting by domain, ascending/descending
-- Sorting by the number of open tabs for a given website, including subdomains (pl.wikipedia.org and en.wikipedia.org treated as wikipedia.org), ascending/descending
-
-5. Closed tabs and windows
+2. Closed tabs and windows
 - Add a 'Closed tabs and windows' section
 - In the window and tab view, add a notification bubble about closing a given tab
 
-6. Snapshots
+3. Snapshots
 - Create and save snapshots of open windows
 - Quickly reopen saved snapshots
 - Automatically save snapshots
 
-7. Fixes
+4. Fixes
+- Close duplicate tabs button not working correctly

@@ -78,10 +78,14 @@
 	const closeDuplicateTabs = async (currentWindowOnly = false) => {
 		const tabs = await chrome.tabs.query(currentWindowOnly ? { windowId: (await chrome.windows.getCurrent()).id } : {});
 		const seen = new Set();
-		const duplicates = tabs.filter(tab => seen.has(tab.url) ? true : !seen.add(tab.url));
+		const duplicateIds = tabs.filter(tab => {
+			if (!tab.url || tab.url === 'about:blank' || tab.url.startsWith('chrome://') || tab.url.startsWith('about:')) return false;
+			return seen.has(tab.url) ? true : !seen.add(tab.url);
+		}).map(tab => tab.id);
 
-		duplicates.forEach(tab => chrome.tabs.remove(tab.id));
-		i18nAlert?.(currentWindowOnly ? "closed_duplicates_current_alert" : "closed_duplicates_alert", duplicates.length.toString());
+		// Batch remove all duplicates in a single API call
+		if (duplicateIds.length > 0) await chrome.tabs.remove(duplicateIds);
+		i18nAlert?.(currentWindowOnly ? "closed_duplicates_current_alert" : "closed_duplicates_alert", duplicateIds.length.toString());
 	};
 
 	const handleButtonClick = async (action) => {
@@ -93,7 +97,15 @@
 			exportTabs: () => download(document.getElementById("exportWindow").value, document.getElementById("exportFormat").value)
 		};
 
-		await (actions[action]?.() ?? chrome.runtime.sendMessage({ action: "sort", args: [action] }, () => chrome.runtime.lastError || window.close()));
+		const sortMode = document.getElementById("sortMode")?.value || "default";
+		if (actions[action]) {
+			await actions[action]();
+		} else {
+			try {
+				await chrome.runtime.sendMessage({ action: "sort", args: [action, sortMode] });
+			} catch (e) { console.warn('Sort message error:', e); }
+			window.close();
+		}
 	};
 
 	const initI18n = async () => {

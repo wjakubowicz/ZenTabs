@@ -37,6 +37,17 @@
 				<button type="button" id="btOpenTabs" class="btn btn-primary" data-i18n="open_urls">Open all URLs in new tabs</button>
 			</div>
 			<br>
+			<div class="mb-2">
+				<select id="sortMode" class="form-select form-select-sm">
+					<option value="default" data-i18n="sort_default">Default sort</option>
+					<option value="alpha-asc" data-i18n="sort_alpha_asc">Title A→Z</option>
+					<option value="alpha-desc" data-i18n="sort_alpha_desc">Title Z→A</option>
+					<option value="domain-asc" data-i18n="sort_domain_asc">Domain A→Z</option>
+					<option value="domain-desc" data-i18n="sort_domain_desc">Domain Z→A</option>
+					<option value="count-desc" data-i18n="sort_count_desc">Most tabs (by domain)</option>
+					<option value="count-asc" data-i18n="sort_count_asc">Fewest tabs (by domain)</option>
+				</select>
+			</div>
 			<div class="btn-group">
 				<button id="all" type="button" class="btn btn-outline-success" data-i18n="sort_all_tabs">Sort All Tabs</button>
 				<button id="window" type="button" class="btn btn-outline-success" data-i18n="sort_current_window">Sort This Window</button>

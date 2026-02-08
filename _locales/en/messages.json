@@ -190,5 +190,38 @@
     },
     "initialization_error_description": {
         "message": "Failed to initialize ZenTabs."
+    },
+    "sort_by": {
+        "message": "Sort by:"
+    },
+    "sort_default": {
+        "message": "Default sort"
+    },
+    "sort_alpha_asc": {
+        "message": "Title A→Z"
+    },
+    "sort_alpha_desc": {
+        "message": "Title Z→A"
+    },
+    "sort_domain_asc": {
+        "message": "Domain A→Z"
+    },
+    "sort_domain_desc": {
+        "message": "Domain Z→A"
+    },
+    "sort_count_desc": {
+        "message": "Most tabs (by domain)"
+    },
+    "sort_count_asc": {
+        "message": "Fewest tabs (by domain)"
+    },
+    "sort_all_success": {
+        "message": "Sorting all windows..."
+    },
+    "sort_window_success": {
+        "message": "Window tabs sorted"
+    },
+    "no_duplicates": {
+        "message": "No duplicate tabs found"
     }
 }

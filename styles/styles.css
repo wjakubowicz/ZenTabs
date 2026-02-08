@@ -170,7 +170,7 @@ h1 { font-size: 1.85rem; }
 
 /* --- Specific input styles --- */
 textarea {
-	height: 280px;
+	height: 230px;
 	resize: vertical;
 	font-family: 'Roboto Mono', monospace;
 	line-height: 1.5;

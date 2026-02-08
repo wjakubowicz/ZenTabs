@@ -128,6 +128,37 @@
         </div>
     </div>
 
+    <!-- Sort Controls -->
+    <div class="container-fluid mb-3">
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+            <label class="form-label mb-0 text-muted small">
+                <i data-feather="list" class="me-1" style="width:14px;height:14px;"></i>
+                <span data-i18n="sort_by">Sort by:</span>
+            </label>
+            <select id="sortMode" class="form-select form-select-sm" style="width: auto; min-width: 200px;">
+                <option value="default" data-i18n="sort_default">Default sort</option>
+                <option value="alpha-asc" data-i18n="sort_alpha_asc">Title A→Z</option>
+                <option value="alpha-desc" data-i18n="sort_alpha_desc">Title Z→A</option>
+                <option value="domain-asc" data-i18n="sort_domain_asc">Domain A→Z</option>
+                <option value="domain-desc" data-i18n="sort_domain_desc">Domain Z→A</option>
+                <option value="count-desc" data-i18n="sort_count_desc">Most tabs (by domain)</option>
+                <option value="count-asc" data-i18n="sort_count_asc">Fewest tabs (by domain)</option>
+            </select>
+            <button id="sortAllBtn" class="btn btn-outline-success btn-sm">
+                <i data-feather="shuffle" class="me-1"></i>
+                <span data-i18n="sort_all_tabs">Sort All Windows</span>
+            </button>
+            <button id="sortCurrentBtn" class="btn btn-outline-success btn-sm">
+                <i data-feather="shuffle" class="me-1"></i>
+                <span data-i18n="sort_current_window">Sort Current Window</span>
+            </button>
+            <button id="closeDupsBtn" class="btn btn-outline-danger btn-sm">
+                <i data-feather="copy" class="me-1"></i>
+                <span data-i18n="close_duplicates">Close Duplicates</span>
+            </button>
+        </div>
+    </div>
+
     <!-- Windows Container -->
     <div id="windowsContainer" class="windows-container" role="main" aria-label="Windows and tabs">
         <!-- Loading state (hidden by default, shown only when explicitly loading) -->

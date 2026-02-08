@@ -509,15 +509,55 @@
 		}
 	};
 
-	// Reuse sorting logic from background.js
+	// Sorting operations
 	const sortWindow = async windowId => {
 		try {
-			chrome.runtime.sendMessage({ action: "sort", args: ["window"] });
+			const sortMode = document.getElementById('sortMode')?.value || 'default';
+			chrome.runtime.sendMessage({ action: "sort", args: ["window", sortMode] });
 			setTimeout(loadWindowsAndTabs, 1000);
-			showToast('Window tabs sorted', 'success');
+			showToast(getMessage('sort_window_success') || 'Window tabs sorted', 'success');
 		} catch (error) {
 			console.error("Error sorting window:", error);
 			showToast('Error sorting window', 'danger');
+		}
+	};
+
+	const sortAllWindows = async () => {
+		try {
+			const sortMode = document.getElementById('sortMode')?.value || 'default';
+			chrome.runtime.sendMessage({ action: "sort", args: ["all", sortMode] });
+			showToast(getMessage('sort_all_success') || 'Sorting all windows...', 'info', 1500);
+			setTimeout(loadWindowsAndTabs, 1000);
+		} catch (error) {
+			showToast('Error sorting tabs', 'danger');
+		}
+	};
+
+	const sortCurrentWindow = async () => {
+		try {
+			const sortMode = document.getElementById('sortMode')?.value || 'default';
+			chrome.runtime.sendMessage({ action: "sort", args: ["window", sortMode] });
+			showToast(getMessage('sort_window_success') || 'Sorting current window...', 'info', 1500);
+			setTimeout(loadWindowsAndTabs, 1000);
+		} catch (error) {
+			showToast('Error sorting tabs', 'danger');
+		}
+	};
+
+	const closeDuplicateTabsManager = async () => {
+		try {
+			const tabs = await chrome.tabs.query({});
+			const seen = new Set();
+			const duplicateIds = tabs.filter(tab => seen.has(tab.url) ? true : !seen.add(tab.url)).map(t => t.id);
+			if (duplicateIds.length === 0) {
+				showToast(getMessage('no_duplicates') || 'No duplicate tabs found', 'info');
+				return;
+			}
+			await chrome.tabs.remove(duplicateIds);
+			showToast(`${getMessage('closed_duplicates_alert')?.replace('$1', duplicateIds.length) || `Closed ${duplicateIds.length} duplicate tabs`}`, 'success');
+			await loadWindowsAndTabs();
+		} catch (error) {
+			showToast('Error closing duplicates', 'danger');
 		}
 	};
 
@@ -829,7 +869,10 @@
 			confirmMoveBtn: confirmMoveTabsAction,
 			cancelMoveBtn: closeMoveTabsModal,
 			closeMoveModalBtn: closeMoveTabsModal,
-			mergeWindowsBtn: mergeSelectedWindows
+			mergeWindowsBtn: mergeSelectedWindows,
+			sortAllBtn: sortAllWindows,
+			sortCurrentBtn: sortCurrentWindow,
+			closeDupsBtn: closeDuplicateTabsManager
 		};
 
 		Object.entries(buttonHandlers).forEach(([id, handler]) => {
